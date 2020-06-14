@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:id="@+id/card_view"
+android:layout_margin="5dp"
+app:cardBackgroundColor="@color/catfont"
+app:cardCornerRadius="12dp"
+app:cardElevation="3dp"
+    android:foreground="?selectableItemBackground"
+    android:clickable="true"
+app:contentPadding="4dp" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:textColor="#fff"
+        android:id="@+id/ttitle"
+        android:layout_margin="5dp"
+        ></TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:textColor="#fff"
+            android:id="@+id/phonetext1"
+
+            android:layout_margin="5dp"
+            ></TextView>
+
+        <ImageView
+            android:id="@+id/phone1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            app:srcCompat="@android:drawable/stat_sys_phone_call">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:textColor="#fff"
+            android:id="@+id/phonetext2"
+            android:layout_margin="5dp"
+            ></TextView>
+
+        <ImageView
+            android:id="@+id/phone2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            app:srcCompat="@android:drawable/stat_sys_phone_call">
+
+        </ImageView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:textColor="#fff"
+            android:id="@+id/emailtext"
+            android:layout_margin="5dp"
+            ></TextView>
+
+        <ImageView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            app:srcCompat="@android:drawable/ic_dialog_email">
+
+        </ImageView>
+    </LinearLayout>
+
+</LinearLayout>
+</androidx.cardview.widget.CardView>

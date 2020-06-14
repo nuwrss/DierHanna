@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SendToUsActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="@android:color/white"
+        android:theme="@style/ToolbarTheme"
+        android:background="?attr/colorPrimary">
+    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/explain_send_to_us"
+        android:layout_height="wrap_content">
+
+    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:id="@+id/nameedit"
+            android:hint="@string/your_name"
+            android:layout_height="wrap_content">
+
+        </EditText>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:id="@+id/phoneedit"
+            android:hint="@string/phone_number"
+            android:layout_height="wrap_content">
+
+        </EditText>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:id="@+id/titleedit"
+            android:hint="@string/title"
+            android:layout_height="wrap_content">
+
+        </EditText>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:id="@+id/messageedit"
+            android:hint="@string/message"
+            android:layout_height="wrap_content">
+
+        </EditText>
+        <Button
+            android:id="@+id/buttonOk"
+            android:layout_width="200dp"
+            android:onClick="send"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/send"
+            android:textColor="#FFF" />
+    </LinearLayout>
+</LinearLayout>

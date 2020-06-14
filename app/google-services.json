@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "703717599522",
+    "firebase_url": "https://dier-hanna.firebaseio.com",
+    "project_id": "dier-hanna",
+    "storage_bucket": "dier-hanna.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703717599522:android:21ff8152160d52fb8d9d7b",
+        "android_client_info": {
+          "package_name": "com.digitaldreamsapps.dierhanna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703717599522-j8mk3sgbif2ovoj02vm6ua8nh7f3pfp0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhlptyw-ZH9U1y3gFW6m3GIDfaBLD35cE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703717599522-j8mk3sgbif2ovoj02vm6ua8nh7f3pfp0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

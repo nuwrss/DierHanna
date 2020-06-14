@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".admin.AdminActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/catnamear"
+            android:hint="enter category name arabic"
+            ></EditText>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/catnamehe"
+                android:hint="enter category name hebrew"
+                ></EditText>
+            <Button
+                android:layout_width="wrap_content"
+                android:id="@+id/addPicCat"
+                android:text="add picture to category"
+                android:layout_height="wrap_content">
+
+            </Button>
+            <ImageView
+                android:layout_width="50dp"
+                android:id="@+id/imgcat"
+                android:layout_height="50dp">
+
+            </ImageView>
+            <Button
+                android:layout_width="wrap_content"
+                android:id="@+id/submitcat"
+                android:text="save category"
+                android:layout_height="wrap_content">
+
+            </Button>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="@color/colorPrimary"
+                android:layout_height="1dp"></LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/departnamrar"
+                android:hint="enter place name arabic"
+                ></EditText>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/departnamrhe"
+                android:hint="enter place name hebrew"
+                ></EditText>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/phoneedit"
+                android:hint="enter phone number"
+                ></EditText>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/latitudeedit"
+                android:hint="enter latitude"
+                ></EditText>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/longedit"
+                android:hint="enter longitud"
+                ></EditText>
+            <Button
+                android:layout_width="wrap_content"
+                android:id="@+id/adddepartment"
+                android:text="add picture to department"
+                android:layout_height="wrap_content">
+
+            </Button>
+            <ImageView
+                android:layout_width="50dp"
+                android:id="@+id/imgdepartment"
+                android:layout_height="50dp">
+
+            </ImageView>
+            <Button
+                android:layout_width="wrap_content"
+                android:id="@+id/submitdepartment"
+                android:text="save department"
+                android:layout_height="wrap_content">
+
+            </Button>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="@color/colorPrimary"
+                android:layout_height="1dp"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">دير حنا</string>
+    <string name="news">اخبار</string>
+    <string name="business">متاجر واعمال</string>
+    <string name="appointment">ادوار</string>
+    <string name="phone_numbers">هواتف مهمه</string>
+    <string name="History">تاريخ واثار</string>
+    <string name="Weddings">حفلات زواج</string>
+    <string name="forms">نماذح واستمارات</string>
+    <string name="send_to_us">ارسل لنا</string>
+    <string name="report">ارسل تقرير</string>
+    <string name="close">اغلاق</string>
+    <string name="mdadem">قياسات</string>
+    <string name="bus">الحافلات</string>
+    <string name="last_update" >اخر تحديث : </string>
+    <string name="Temperature" >درجه الحراره : </string>
+    <string name="Humadity" >الرطوبه : </string>
+    <string name="wind_speed" >سرعه الرياح : </string>
+    <string name="This_metrics_are_in_our_village" >هذه القياسات مأخوذه من اجهزه ومجسات وضعناها في القريه </string>
+    <string name="English" >English</string>
+    <string name="Arabic" >العربيه</string>
+    <string name="Hebrew" >עברית</string>
+    <string name="explain_send_to_us">لاقتراحاتكم والتواصل معنا الرجاء تعبئه النموذج التالي : </string>
+    <string name="send_success">شكرا لك وصلتنا رسالتك</string>
+    <string name="send_failed">حدثت مشكله اثناء الارسال ! الرجاء المحاوله مره اخرى</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="your_name">الاسم</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="title">العنوان</string>
+    <string name="message">الرساله</string>
+    <string name="send">ارسل</string>
+    <string name="search" >ابحث</string>
+</resources>

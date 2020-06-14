@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Dier Hanna</string>
+    <string name="news">News</string>
+    <string name="business">Business</string>
+    <string name="appointment">Appointment</string>
+    <string name="phone_numbers">Phones</string>
+    <string name="History">History</string>
+    <string name="Weddings">Weddings</string>
+    <string name="forms">Forms</string>
+    <string name="send_to_us">Send To Us</string>
+    <string name="report">Report</string>
+    <string name="mdadem">Measurements</string>
+    <string name="bus">Buses</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="close">close</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="last_update">Last Update : </string>
+    <string name="Temperature">Temperature : </string>
+    <string name="Humadity">Humidity : </string>
+    <string name="wind_speed">Wind Speed : </string>
+    <string name="This_metrics_are_in_our_village">This metrics are in our village </string>
+    <string name="English">English</string>
+    <string name="Arabic">العربيه</string>
+    <string name="Hebrew">עברית</string>
+    <string name="explain_send_to_us">You can keep touch with us by fill this form :</string>
+    <string name="send_success">We got your message</string>
+    <string name="send_failed">Please try to send again</string>
+    <string name="your_name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="title">Title</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
+    <string name="search">Search</string>
+
+</resources>

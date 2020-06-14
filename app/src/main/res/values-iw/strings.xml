@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">דייר חנא</string>
+    <string name="news">חדשות</string>
+    <string name="business">עסקים</string>
+    <string name="appointment">קביעת תורים</string>
+    <string name="phone_numbers">מספרים חשובים</string>
+    <string name="History">היסטוריה</string>
+    <string name="Weddings">חתונות</string>
+    <string name="forms">טפסים</string>
+    <string name="send_to_us">שלח לנו</string>
+    <string name="report">דווח</string>
+    <string name="close">סגור</string>
+    <string name="mdadem">מדדים</string>
+    <string name="bus">אוטובוסים</string>
+    <string name="last_update" >עדכון אחרון : </string>
+    <string name="Temperature" >טמפרטורה : </string>
+    <string name="Humadity" >לחות : </string>
+    <string name="wind_speed" >מהירות הרוח : </string>
+    <string name="This_metrics_are_in_our_village" >הנתונים האלה לקחנו אותם מחיישנים שלנו בכפר</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="English" >English</string>
+    <string name="Arabic" >العربيه</string>
+    <string name="Hebrew" >עברית</string>
+    <string name="explain_send_to_us">אם יש לכם מהשהוא להגיד לנו נא למלאת את הטופס :</string>
+    <string name="send_success">תודה ! ההודעה נשלחה בהצלחה</string>
+    <string name="send_failed">בעייה בשליחה ! נא לנסות עוד פעם</string>
+    <string name="your_name">השם</string>
+    <string name="phone_number">מספר הטלפון</string>
+    <string name="title">כותרת</string>
+    <string name="message">ההודעה</string>
+    <string name="send">שלח</string>
+    <string name="search" >חפש</string>
+
+</resources>
