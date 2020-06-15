@@ -2,6 +2,7 @@ package com.digitaldreamsapps.dierhanna.models;
 
 import com.digitaldreamsapps.dierhanna.util.Config;
 import com.digitaldreamsapps.dierhanna.util.Language;
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ public class BusinessCat {
     private String nameAr;
     private String nameHe;
     private String nameEn;
+    private String icon;
 
     public ArrayList<Place> getPlaces() {
         return places;
@@ -56,6 +58,12 @@ public class BusinessCat {
         this.icon = icon;
     }
 
-    private String icon;
+    public void setDetails(DataSnapshot details){
+        setNameAr((String) details.child("nameAr").getValue());
+
+        setNameHe((String) details.child("nameHe").getValue());
+        setNameEn((String) details.child("nameEn").getValue());
+        setIcon((String) details.child("icon").getValue());
+    }
 
 }

@@ -1,11 +1,12 @@
 package com.digitaldreamsapps.dierhanna.models;
 
-import com.digitaldreamsapps.dierhanna.util.Config;
-import com.digitaldreamsapps.dierhanna.util.Language;
+
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
 public class Business extends Place {
+
 
 
 }

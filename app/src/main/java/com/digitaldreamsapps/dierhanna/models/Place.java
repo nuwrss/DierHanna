@@ -2,6 +2,7 @@ package com.digitaldreamsapps.dierhanna.models;
 
 import com.digitaldreamsapps.dierhanna.util.Config;
 import com.digitaldreamsapps.dierhanna.util.Language;
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,11 @@ public abstract class Place {
     private String pic;
     private  ArrayList<String> pics;
     private Boolean show_image_inside_dialog_window= false;
+    private String marker;
+    private String descriptionEn;
+    private ArrayList<String> phones ;
+    private String descriptionAr;
+    private String descriptionHe;
 
     public Boolean istShow_image_inside_marker_window() {
         if (show_image_inside_marker_window==null)return false;
@@ -62,21 +68,16 @@ public abstract class Place {
         this.pics=pics;
     }
 
-    private String marker;
+
 
     public void setMarker(String marker) {
         this.marker=marker;
 
     }
 
-
     public String getMarker() {
         return marker;
     }
-
-    private String descriptionAr;
-    private String descriptionHe;
-
 
     public void setNameAr(String nameAr) {
 
@@ -105,8 +106,7 @@ public abstract class Place {
         this.descriptionEn = descriptionEn;
     }
 
-    private String descriptionEn;
-    private ArrayList<String> phones ;
+
 
     public ArrayList<String> getPhones() {
         return phones;
@@ -152,5 +152,20 @@ public abstract class Place {
 
     public String getPic() {
         return pic;
+    }
+
+    public void setDetails(DataSnapshot details){
+        setNameAr((String) details.child("nameAr").getValue());
+        setNameHe((String) details.child("nameHe").getValue());
+        setNameEn((String) details.child("nameEn").getValue());
+        setDescriptionAr((String) details.child("descriptionAr").getValue());
+        setDescriptionEn((String) details.child("descriptionEn").getValue());
+        setDescriptionHe((String) details.child("descriptionHe").getValue());
+        setPhones((ArrayList<String>) details.child("phones").getValue());
+        setPict((String) details.child("picture").getValue());
+        setMarker((String) details.child("marker").getValue());
+        setPictures((ArrayList<String>) details.child("pictures").getValue());
+        setShowImageInMarkerWindow((Boolean) details.child("show image inside marker window").getValue());
+        setShowimageinsidedialogwindow((Boolean) details.child("show image inside dialog window").getValue());
     }
 }

@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.app.Dialog;
 import android.app.SearchManager;
@@ -19,7 +17,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -29,7 +26,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.digitaldreamsapps.dierhanna.adapters.BusCatAdapter;
 import com.digitaldreamsapps.dierhanna.adapters.DierInfoWindowAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnBusnissCatClicked;
@@ -57,18 +53,17 @@ import java.util.ArrayList;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
-    MapViewModel model;
-    MapMemorialsViewModel mapMemorialsViewModel;
-    ProgressBar progressBar;
-
-    ArrayList<Marker>markers=new ArrayList<>();
-    ArrayList<BusinessCat>businessCats=new ArrayList<>();
-    ArrayList<Place>searchPlaces=new ArrayList<>();
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager RecyclerViewLayoutManager;
-    LinearLayoutManager HorizontalLayout;
-    BusCatAdapter busCatAdapter;
-    String type;
+    private MapViewModel model;
+    private MapMemorialsViewModel mapMemorialsViewModel;
+    private ProgressBar progressBar;
+    private ArrayList<Marker>markers=new ArrayList<>();
+    private ArrayList<BusinessCat>businessCats=new ArrayList<>();
+    private ArrayList<Place>searchPlaces=new ArrayList<>();
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager RecyclerViewLayoutManager;
+    private LinearLayoutManager HorizontalLayout;
+    private BusCatAdapter busCatAdapter;
+    
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -115,7 +110,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 = new LinearLayoutManager(
                 getApplicationContext());
 
-        // Set LayoutManager on Recycler View
+        
         recyclerView.setLayoutManager(
                 RecyclerViewLayoutManager);
 
@@ -161,6 +156,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             marker.remove();
 
         }
+        markers.clear();
         for (final Place place : businessCat.getPlaces()) {
 
             try {
@@ -172,7 +168,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(place.getName()));
 
                     marker.setTag(place);
-                    marker.showInfoWindow();
+                   
                     markers.add(marker);
 
 
@@ -186,7 +182,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                                     .position(sydney).title(place.getName()));
                             marker.setTag(place);
-                            marker.showInfoWindow();
+                           
                             markers.add(marker);
                         }
 
@@ -195,7 +191,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(place.getName()));
 
                             marker.setTag(place);
-                            marker.showInfoWindow();
+                           
                             markers.add(marker);
                         }
 
@@ -222,6 +218,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             marker.remove();
 
         }
+        
+        markers.clear();
 
         for (BusinessCat businessCat : businessCats) {
             for (Place place : businessCat.getPlaces()) {
@@ -250,7 +248,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(place.getName()));
 
                         marker.setTag(place);
-                        marker.showInfoWindow();
+                       
                         markers.add(marker);
 
 
@@ -264,7 +262,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                                         .position(sydney).title(place.getName()));
                                 marker.setTag(place);
-                                marker.showInfoWindow();
+                               
                                 markers.add(marker);
                             }
 
@@ -273,7 +271,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(place.getName()));
 
                                 marker.setTag(place);
-                                marker.showInfoWindow();
+                               
                                 markers.add(marker);
                             }
 
@@ -314,18 +312,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     
 
                     for (DataSnapshot readData : dataSnapshot.getChildren()) {
-                        BusinessCat businessCat = readData.getValue(BusinessCat.class);
-                        stDetailsCats(businessCat,readData);
-                        Log.e("size",dataSnapshot.getChildrenCount()+"");
+                        BusinessCat businessCat = new BusinessCat();
+                        businessCat.setDetails(readData);
+                        
                         for (DataSnapshot snapshot : readData.getChildren()){
                             if (snapshot.getKey().equals("nameAr")||snapshot.getKey().equals("nameEn")||snapshot.getKey().equals("nameHe")||snapshot.getKey().equals("icon")){
 
                                 continue;
                             }
                             for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                                final Business data = snapshot1.getValue(Business.class);
-                                stDetails(data, snapshot1);
-                                Log.e("data",data.getName());
+                                final Business data = new Business();
+                                data.setDetails(snapshot1);
+                                
                                 businessCat.addPlace(data);
 
 
@@ -339,7 +337,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
 
                                         marker.setTag(data);
-                                        marker.showInfoWindow();
+                                       
                                         markers.add(marker);
 
 
@@ -353,7 +351,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                         .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                                                         .position(sydney).title(data.getName()));
                                                 marker.setTag(data);
-                                                marker.showInfoWindow();
+                                               
                                                 markers.add(marker);
                                             }
 
@@ -362,7 +360,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                                 Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
 
                                                 marker.setTag(data);
-                                                marker.showInfoWindow();
+                                               
                                                 markers.add(marker);
                                             }
 
@@ -399,30 +397,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    private void stDetails(Place place, DataSnapshot dataSnapshot) {
-        place.setNameAr((String) dataSnapshot.child("nameAr").getValue());
-        place.setNameHe((String) dataSnapshot.child("nameHe").getValue());
-        place.setNameEn((String) dataSnapshot.child("nameEn").getValue());
-        place.setDescriptionAr((String) dataSnapshot.child("descriptionAr").getValue());
-        place.setDescriptionEn((String) dataSnapshot.child("descriptionEn").getValue());
-        place.setDescriptionHe((String) dataSnapshot.child("descriptionHe").getValue());
-        place.setPhones((ArrayList<String>) dataSnapshot.child("phones").getValue());
-        place.setPict((String) dataSnapshot.child("picture").getValue());
-        place.setMarker((String) dataSnapshot.child("marker").getValue());
-        place.setPictures((ArrayList<String>) dataSnapshot.child("pictures").getValue());
-        place.setShowImageInMarkerWindow((Boolean) dataSnapshot.child("show image inside marker window").getValue());
-        place.setShowimageinsidedialogwindow((Boolean) dataSnapshot.child("show image inside dialog window").getValue());
-    }
+    
 
-    private void stDetailsCats(BusinessCat businessCat, DataSnapshot dataSnapshot) {
-        businessCat.setNameAr((String) dataSnapshot.child("nameAr").getValue());
-
-        businessCat.setNameHe((String) dataSnapshot.child("nameHe").getValue());
-        businessCat.setNameEn((String) dataSnapshot.child("nameEn").getValue());
-        businessCat.setIcon((String) dataSnapshot.child("icon").getValue());
-
-
-    }
+  
 
     private void Memorials() {
 
@@ -436,13 +413,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (dataSnapshot != null) {
 
                     for (DataSnapshot readData : dataSnapshot.getChildren()) {
-                        Memorial data = readData.getValue(Memorial.class);
-                        stDetails(data, readData);
+                        Memorial data = new Memorial();
+                        data.setDetails(readData);
+                        
                         try {
                             LatLng sydney = new LatLng((data.getLat()), (data.getLongt()));
                             Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
                             marker.setTag(data);
-                            marker.showInfoWindow();
+                           
                         } catch (NullPointerException e) {
 
                         }
@@ -486,7 +464,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
 
-        // 32.862483, 35.366343
+       
 
 
         LatLng sydney = new LatLng((32.862483), (35.366343));
