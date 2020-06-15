@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MapViewModel extends ViewModel {
 
 
-    private  static  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("BusinessCat");//Business
+    private  static  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("BusinessCats");//Business
     private final FirebaseDatabaseRepository liveData = new FirebaseDatabaseRepository(mDatabase);
 
 

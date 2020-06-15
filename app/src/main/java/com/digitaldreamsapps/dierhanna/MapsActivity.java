@@ -316,65 +316,70 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     for (DataSnapshot readData : dataSnapshot.getChildren()) {
                         BusinessCat businessCat = readData.getValue(BusinessCat.class);
                         stDetailsCats(businessCat,readData);
+                        Log.e("size",dataSnapshot.getChildrenCount()+"");
                         for (DataSnapshot snapshot : readData.getChildren()){
                             if (snapshot.getKey().equals("nameAr")||snapshot.getKey().equals("nameEn")||snapshot.getKey().equals("nameHe")||snapshot.getKey().equals("icon")){
 
                                 continue;
                             }
-                           final Business data = snapshot.getValue(Business.class);
-                            stDetails(data, snapshot);
-                            businessCat.addPlace(data);
-                            businessCats.add(businessCat);
+                            for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                                final Business data = snapshot1.getValue(Business.class);
+                                stDetails(data, snapshot1);
+                                Log.e("data",data.getName());
+                                businessCat.addPlace(data);
 
 
-                            try {
-                                final LatLng sydney = new LatLng((data.getLat()), (data.getLongt()));
 
-                                if (data.getMarker() == null) {
+                                try {
+                                    final LatLng sydney = new LatLng((data.getLat()), (data.getLongt()));
 
-
-                                    Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
-
-                                    marker.setTag(data);
-                                    marker.showInfoWindow();
-                                    markers.add(marker);
+                                    if (data.getMarker() == null) {
 
 
-                                } else {
+                                        Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
 
-                                    Target target = new Target() {
-                                        @Override
-                                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                            Marker marker = mMap.addMarker(new MarkerOptions()
-                                                    .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-                                                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                                                    .position(sydney).title(data.getName()));
-                                            marker.setTag(data);
-                                            marker.showInfoWindow();
-                                            markers.add(marker);
-                                        }
-
-                                        @Override
-                                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                                            Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
-
-                                            marker.setTag(data);
-                                            marker.showInfoWindow();
-                                            markers.add(marker);
-                                        }
-
-                                        @Override
-                                        public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                                        }
-                                    };
+                                        marker.setTag(data);
+                                        marker.showInfoWindow();
+                                        markers.add(marker);
 
 
-                                    Picasso.get().load(data.getMarker()).into(target);
+                                    } else {
+
+                                        Target target = new Target() {
+                                            @Override
+                                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                                Marker marker = mMap.addMarker(new MarkerOptions()
+                                                        .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+                                                        .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                                                        .position(sydney).title(data.getName()));
+                                                marker.setTag(data);
+                                                marker.showInfoWindow();
+                                                markers.add(marker);
+                                            }
+
+                                            @Override
+                                            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                                                Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
+
+                                                marker.setTag(data);
+                                                marker.showInfoWindow();
+                                                markers.add(marker);
+                                            }
+
+                                            @Override
+                                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                                            }
+                                        };
+
+
+                                        Picasso.get().load(data.getMarker()).into(target);
+                                    }
+                                } catch (NullPointerException e) {
+
                                 }
-                            } catch (NullPointerException e) {
-
                             }
+                            businessCats.add(businessCat);
 
                         }
 
