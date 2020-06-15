@@ -165,6 +165,8 @@ public abstract class Place {
         setPict((String) details.child("picture").getValue());
         setMarker((String) details.child("marker").getValue());
         setPictures((ArrayList<String>) details.child("pictures").getValue());
+        setLat((Double) details.child("lat").getValue());
+        setLongt((Double)details.child("longt").getValue());
         setShowImageInMarkerWindow((Boolean) details.child("show image inside marker window").getValue());
         setShowimageinsidedialogwindow((Boolean) details.child("show image inside dialog window").getValue());
     }

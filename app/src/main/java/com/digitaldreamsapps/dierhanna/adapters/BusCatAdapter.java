@@ -42,7 +42,7 @@ public class BusCatAdapter extends RecyclerView.Adapter<BusCatAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final BusinessCat businessCat = businessCats.get(position);
-        holder.itemDetail.setText(businessCat.getName());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,14 +68,13 @@ public class BusCatAdapter extends RecyclerView.Adapter<BusCatAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        public TextView itemDetail;
+
         public ImageView icon;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            itemDetail =
-                    (TextView)itemView.findViewById(R.id.name);
+
             icon = itemView.findViewById(R.id.icon);
         }
     }

@@ -24,19 +24,13 @@ app:contentPadding="4dp" >
     <ImageView
         android:layout_width="50dp"
         android:layout_gravity="center"
+        android:tint="#FFFFFFFF"
         android:id="@+id/icon"
         android:layout_height="50dp">
 
     </ImageView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#fff"
-        android:id="@+id/name"
-        android:layout_margin="5dp"
-        ></TextView>
+
 
 </LinearLayout>
 </androidx.cardview.widget.CardView>

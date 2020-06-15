@@ -151,6 +151,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void categorySelected(BusinessCat businessCat){
         model.getdataSnapshotLiveData().removeObservers(this);
 
+
         searchPlaces.clear();
         for (Marker marker : markers){
             marker.remove();
@@ -305,7 +306,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         marker.remove();
 
                     }
-                    markers.clear();
+
                     businessCats.clear();
 
 
@@ -314,7 +315,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     for (DataSnapshot readData : dataSnapshot.getChildren()) {
                         BusinessCat businessCat = new BusinessCat();
                         businessCat.setDetails(readData);
-                        
+                        businessCats.add(businessCat);
                         for (DataSnapshot snapshot : readData.getChildren()){
                             if (snapshot.getKey().equals("nameAr")||snapshot.getKey().equals("nameEn")||snapshot.getKey().equals("nameHe")||snapshot.getKey().equals("icon")){
 
@@ -323,7 +324,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             for (DataSnapshot snapshot1 : snapshot.getChildren()){
                                 final Business data = new Business();
                                 data.setDetails(snapshot1);
-                                
+
                                 businessCat.addPlace(data);
 
 
@@ -337,6 +338,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
 
                                         marker.setTag(data);
+                                        Log.e("name1111",data.getName());
                                        
                                         markers.add(marker);
 
@@ -377,7 +379,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                                 }
                             }
-                            businessCats.add(businessCat);
+
 
                         }
 
@@ -477,13 +479,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
 
-        showDialog(marker);
-
-        return false;
-    }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
@@ -601,5 +597,10 @@ private final int PERMISSION_REQUEST_CODE =909;
                 }
                 break;
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
     }
 }
