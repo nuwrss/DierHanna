@@ -14,29 +14,22 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SendToUsActivity extends AppCompatActivity {
+public class SendToUsActivity extends BaseActivity {
 
     EditText nameEdit , phoneEdit , titleEdit , messageEdit ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_to_us);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(R.string.send_to_us);
+        setToolbar(getResources().getString(R.string.send_to_us),true,true);
+        setOnSupportNavigateUp(true);
         nameEdit = findViewById(R.id.nameedit);
         phoneEdit = findViewById(R.id.phoneedit);
         titleEdit = findViewById(R.id.titleedit);
         messageEdit = findViewById(R.id.messageedit);
 
     }
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
+
 
     public void send(View view) {
         String name = nameEdit.getText().toString();
@@ -76,9 +69,5 @@ public class SendToUsActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
-    }
 }

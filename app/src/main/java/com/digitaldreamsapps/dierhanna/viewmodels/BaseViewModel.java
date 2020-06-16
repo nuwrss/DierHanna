@@ -9,18 +9,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MapViewModel extends ViewModel {
+public class BaseViewModel extends ViewModel {
+    private  DatabaseReference mDatabase ;
+    private  FirebaseDatabaseRepository liveData;
 
-
-    private  static  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("BusinessCats");//Business
-    private final FirebaseDatabaseRepository liveData = new FirebaseDatabaseRepository(mDatabase);
-
-
+    public void setChildFirebase(String childFirebase){
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(childFirebase);
+        liveData = new FirebaseDatabaseRepository(mDatabase);
+    }
 
     @NonNull
     public LiveData<DataSnapshot> getdataSnapshotLiveData(){
         return liveData;
     }
-
-
 }

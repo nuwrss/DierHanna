@@ -1,8 +1,4 @@
 package com.digitaldreamsapps.dierhanna;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,19 +6,16 @@ import android.widget.TextView;
 import com.digitaldreamsapps.dierhanna.models.News;
 import com.squareup.picasso.Picasso;
 
-public class ArticleActivity extends AppCompatActivity {
+public class ArticleActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setToolbar(getResources().getString(R.string.news),true,true);
+        setOnSupportNavigateUp(true);
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(R.string.news);
         ImageView imageView = findViewById(R.id.mainimage);
         TextView title = findViewById(R.id.maintext);
         TextView textView = findViewById(R.id.text);
@@ -43,9 +36,5 @@ public class ArticleActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
+
 }

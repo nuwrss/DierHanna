@@ -1,11 +1,7 @@
 package com.digitaldreamsapps.dierhanna;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
@@ -24,17 +20,16 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.digitaldreamsapps.dierhanna.adapters.BusCatAdapter;
 import com.digitaldreamsapps.dierhanna.adapters.DierInfoWindowAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnBusnissCatClicked;
+import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedFireBase;
 import com.digitaldreamsapps.dierhanna.models.BusinessCat;
 import com.digitaldreamsapps.dierhanna.models.Place;
 import com.digitaldreamsapps.dierhanna.models.Business;
 import com.digitaldreamsapps.dierhanna.models.Memorial;
 import com.digitaldreamsapps.dierhanna.viewmodels.MapMemorialsViewModel;
-import com.digitaldreamsapps.dierhanna.viewmodels.MapViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,25 +45,18 @@ import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
+public class MapsActivity extends BaseActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
-    private MapViewModel model;
     private MapMemorialsViewModel mapMemorialsViewModel;
-    private ProgressBar progressBar;
     private ArrayList<Marker>markers=new ArrayList<>();
     private ArrayList<BusinessCat>businessCats=new ArrayList<>();
-    private ArrayList<Place>searchPlaces=new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager RecyclerViewLayoutManager;
     private LinearLayoutManager HorizontalLayout;
     private BusCatAdapter busCatAdapter;
     
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -88,12 +76,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        progressBar = findViewById(R.id.progress);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(R.string.business);
+        setOnSupportNavigateUp(true);
+
+
+
+       setToolbar(getResources().getString(R.string.business),true,true);
+
 
         busCatAdapter= new BusCatAdapter(businessCats);
         busCatAdapter.setOnBusnissCatClicked(new OnBusnissCatClicked() {
@@ -146,171 +134,64 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
     private void showAll(){
-        Busness();
-    }
-    private void categorySelected(BusinessCat businessCat){
-        model.getdataSnapshotLiveData().removeObservers(this);
+        setViewModel("BusinessCats", new OnDataChangedFireBase() {
+            @Override
+            public void onDataChanged(DataSnapshot dataSnapshot) {
+                Busness(dataSnapshot);
+            }
 
-
-        searchPlaces.clear();
-        for (Marker marker : markers){
-            marker.remove();
-
-        }
-        markers.clear();
-        for (final Place place : businessCat.getPlaces()) {
-
-            try {
-                final LatLng sydney = new LatLng((place.getLat()), (place.getLongt()));
-
-                if (place.getMarker() == null) {
-
-
-                    Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(place.getName()));
-
-                    marker.setTag(place);
-                   
-                    markers.add(marker);
-
-
-                } else {
-
-                    Target target = new Target() {
-                        @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            Marker marker = mMap.addMarker(new MarkerOptions()
-                                    .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-                                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                                    .position(sydney).title(place.getName()));
-                            marker.setTag(place);
-                           
-                            markers.add(marker);
-                        }
-
-                        @Override
-                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                            Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(place.getName()));
-
-                            marker.setTag(place);
-                           
-                            markers.add(marker);
-                        }
-
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                        }
-                    };
-
-
-                    Picasso.get().load(place.getMarker()).into(target);
-                }
-            } catch (NullPointerException e) {
+            @Override
+            public void onNoDataReceived() {
 
             }
+        });
+
+
+    }
+    private void categorySelected(BusinessCat businessCat){
+       unRegisterViewModel();
+
+
+        removeMarkersFromMap();
+        for (final Place place : businessCat.getPlaces()) {
+            addMarkersToMap(place);
+
 
         }
 
     }
     private void searchQuery(String query) {
-        model.getdataSnapshotLiveData().removeObservers(this);
-        searchPlaces.clear();
-        for (Marker marker : markers){
-            marker.remove();
+        unRegisterViewModel();
 
-        }
+
         
-        markers.clear();
+       removeMarkersFromMap();
 
         for (BusinessCat businessCat : businessCats) {
             for (Place place : businessCat.getPlaces()) {
                 if (place.getName().contains(query) || place.getDescription().contains(query) || place.getName().toUpperCase().contains(query.toUpperCase()) || place.getDescription().toUpperCase().contains(query.toUpperCase())) {
-                    searchPlaces.add(place);
 
+                    addMarkersToMap(place);
                 }
 
             }
         }
 
-        for (final Place place : searchPlaces){
 
-
-
-
-
-
-
-                try {
-                    final LatLng sydney = new LatLng((place.getLat()), (place.getLongt()));
-
-                    if (place.getMarker() == null) {
-
-
-                        Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(place.getName()));
-
-                        marker.setTag(place);
-                       
-                        markers.add(marker);
-
-
-                    } else {
-
-                        Target target = new Target() {
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                Marker marker = mMap.addMarker(new MarkerOptions()
-                                        .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-                                        .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                                        .position(sydney).title(place.getName()));
-                                marker.setTag(place);
-                               
-                                markers.add(marker);
-                            }
-
-                            @Override
-                            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                                Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(place.getName()));
-
-                                marker.setTag(place);
-                               
-                                markers.add(marker);
-                            }
-
-                            @Override
-                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                            }
-                        };
-
-
-                        Picasso.get().load(place.getMarker()).into(target);
-                    }
-                } catch (NullPointerException e) {
-
-                }
-
-        }
     }
 
-    private void Busness() {
-        if (model==null)
-        model = new ViewModelProvider(this).get(MapViewModel.class);
+    private void Busness(DataSnapshot dataSnapshot) {
+
+
         DierInfoWindowAdapter customInfoWindow = new DierInfoWindowAdapter(this);
         mMap.setInfoWindowAdapter(customInfoWindow);
 
-        model.getdataSnapshotLiveData().observe(this, new Observer<DataSnapshot>() {
-            @Override
-            public void onChanged(DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null) {
-                    for (Marker marker : markers){
-                        marker.remove();
 
-                    }
+
+
+                   removeMarkersFromMap();
 
                     businessCats.clear();
-
-
-                    
 
                     for (DataSnapshot readData : dataSnapshot.getChildren()) {
                         BusinessCat businessCat = new BusinessCat();
@@ -326,58 +207,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 data.setDetails(snapshot1);
 
                                 businessCat.addPlace(data);
+                                addMarkersToMap(data);
 
 
 
-                                try {
-                                    final LatLng sydney = new LatLng((data.getLat()), (data.getLongt()));
-
-                                    if (data.getMarker() == null) {
-
-
-                                        Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
-
-                                        marker.setTag(data);
-                                        Log.e("name1111",data.getName());
-                                       
-                                        markers.add(marker);
-
-
-                                    } else {
-
-                                        Target target = new Target() {
-                                            @Override
-                                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                                Marker marker = mMap.addMarker(new MarkerOptions()
-                                                        .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-                                                        .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                                                        .position(sydney).title(data.getName()));
-                                                marker.setTag(data);
-                                               
-                                                markers.add(marker);
-                                            }
-
-                                            @Override
-                                            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                                                Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
-
-                                                marker.setTag(data);
-                                               
-                                                markers.add(marker);
-                                            }
-
-                                            @Override
-                                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                                            }
-                                        };
-
-
-                                        Picasso.get().load(data.getMarker()).into(target);
-                                    }
-                                } catch (NullPointerException e) {
-
-                                }
                             }
 
 
@@ -389,52 +222,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                     }
-                }
+
 
                 busCatAdapter.notifyDataSetChanged();
-                progressBar.setVisibility(View.GONE);
 
 
-            }
-        });
+
+
     }
 
     
 
   
 
-    private void Memorials() {
-
-        mapMemorialsViewModel = new ViewModelProvider(this).get(MapMemorialsViewModel.class);
-        DierInfoWindowAdapter customInfoWindow = new DierInfoWindowAdapter(this);
-        mMap.setInfoWindowAdapter(customInfoWindow);
-
-        mapMemorialsViewModel.getdataSnapshotLiveData().observe(this, new Observer<DataSnapshot>() {
-            @Override
-            public void onChanged(DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null) {
-
-                    for (DataSnapshot readData : dataSnapshot.getChildren()) {
-                        Memorial data = new Memorial();
-                        data.setDetails(readData);
-                        
-                        try {
-                            LatLng sydney = new LatLng((data.getLat()), (data.getLongt()));
-                            Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title(data.getName()));
-                            marker.setTag(data);
-                           
-                        } catch (NullPointerException e) {
-
-                        }
-                    }
-                }
-
-                progressBar.setVisibility(View.GONE);
-
-
-            }
-        });
-    }
 
     /**
      * Manipulates the map once available.
@@ -460,22 +260,87 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         String type = getIntent().getStringExtra("type");
         if (type.equals("Business")) {
-            Busness();
+            showAll();
+
+
         } else {
-            Memorials();
+
         }
 
 
        
 
 
-        LatLng sydney = new LatLng((32.862483), (35.366343));
+        LatLng zoomIn = new LatLng((32.862483), (35.366343));
 
 
         mMap.setOnInfoWindowClickListener(this);
         mMap.setOnMarkerClickListener(this);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(zoomIn));
+    }
+
+    private void  addMarkersToMap(final Place place){
+
+
+            try {
+
+                final LatLng placeLatLongt = new LatLng((place.getLat()), (place.getLongt()));
+
+                if (place.getMarker() == null) {
+
+
+                    Marker marker = mMap.addMarker(new MarkerOptions().position(placeLatLongt).title(place.getName()));
+
+                    marker.setTag(place);
+
+
+                    markers.add(marker);
+
+
+                } else {
+
+                    Target target = new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            Marker marker = mMap.addMarker(new MarkerOptions()
+                                    .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+                                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                                    .position(placeLatLongt).title(place.getName()));
+                            marker.setTag(place);
+
+                            markers.add(marker);
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                            Marker marker = mMap.addMarker(new MarkerOptions().position(placeLatLongt).title(place.getName()));
+
+                            marker.setTag(place);
+
+                            markers.add(marker);
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                        }
+                    };
+
+
+                    Picasso.get().load(place.getMarker()).into(target);
+                }
+            } catch (NullPointerException e) {
+
+            }
+
+    }
+    private void removeMarkersFromMap(){
+        for (Marker marker : markers){
+            marker.remove();
+
+        }
+        markers.clear();
     }
 
 
@@ -495,7 +360,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         final Dialog dialogView = new Dialog(this);
         dialogView.setContentView(R.layout.busniss_dialog);
-        dialogView.setTitle("Title...");
+        dialogView.setTitle("");
 
         TextView name = dialogView.findViewById(R.id.name);
         name.setText(place.getName());
@@ -543,7 +408,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
 
-// Or map point based on latitude/longitude
                 Uri location = Uri.parse("geo:" + place.getLat() + "," + place.getLongt()); // z param is zoom level
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
                 Intent chooser = Intent.createChooser(mapIntent, "Open with :");

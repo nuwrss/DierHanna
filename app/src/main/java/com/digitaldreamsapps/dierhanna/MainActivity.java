@@ -1,34 +1,18 @@
 package com.digitaldreamsapps.dierhanna;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedFireBase;
 import com.digitaldreamsapps.dierhanna.models.News;
-import com.digitaldreamsapps.dierhanna.util.Config;
-import com.digitaldreamsapps.dierhanna.viewmodels.BaseActivity;
-import com.digitaldreamsapps.dierhanna.viewmodels.MainViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.util.Locale;
 
 
 public class MainActivity extends BaseActivity {
@@ -43,12 +27,12 @@ public class MainActivity extends BaseActivity {
         setContentView( R.layout.activity_main );
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.app_name);
+        setToolbar(getResources().getString(R.string.app_name),false,false);
 
 
-        final ProgressBar progressBar = findViewById(R.id.progressBar);
+
+
+
 
         final TextView mainText = findViewById(R.id.maintext);
         final ImageView imageView = findViewById(R.id.mainimage);
@@ -56,25 +40,25 @@ public class MainActivity extends BaseActivity {
 
 
 
-        MainViewModel model = new ViewModelProvider(this).get(MainViewModel.class);
-
-        model.getdataSnapshotLiveData().observe(this, new Observer<DataSnapshot>() {
+        setViewModel("MainNews", new OnDataChangedFireBase() {
             @Override
-            public void onChanged(DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null){
-                    for(DataSnapshot readData: dataSnapshot.getChildren()){
-                        News data = readData.getValue(News.class);
-                        mainText.setText(data.getTitle());
+            public void onDataChanged(DataSnapshot dataSnapshot) {
+                for(DataSnapshot readData: dataSnapshot.getChildren()){
+                    News data = readData.getValue(News.class);
+                    mainText.setText(data.getTitle());
 
-                        Picasso.get().load(data.getImage()).into(imageView);
+                    Picasso.get().load(data.getImage()).into(imageView);
 
 
-                    }
                 }
+            }
 
-                progressBar.setVisibility(View.GONE);
+            @Override
+            public void onNoDataReceived() {
+
             }
         });
+
 
 
 

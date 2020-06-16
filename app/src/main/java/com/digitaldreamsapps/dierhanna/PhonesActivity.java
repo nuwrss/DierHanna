@@ -1,36 +1,24 @@
 package com.digitaldreamsapps.dierhanna;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-
 import com.digitaldreamsapps.dierhanna.adapters.PhonesAdapter;
+import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedFireBase;
 import com.digitaldreamsapps.dierhanna.interfaces.OnPhoneClickListener;
-import com.digitaldreamsapps.dierhanna.models.News;
 import com.digitaldreamsapps.dierhanna.models.Phones;
-import com.digitaldreamsapps.dierhanna.viewmodels.MainViewModel;
-import com.digitaldreamsapps.dierhanna.viewmodels.PhonesViewModel;
 import com.google.firebase.database.DataSnapshot;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhonesActivity extends AppCompatActivity {
+public class PhonesActivity extends BaseActivity {
 
     private List<Phones> phones = new ArrayList<>();
     private PhonesAdapter phonesAdapter;
@@ -40,14 +28,11 @@ public class PhonesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phones);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(R.string.phone_numbers);
+        setToolbar(getResources().getString(R.string.phone_numbers),true,true);
+        setOnSupportNavigateUp(true);
 
 
-        final ProgressBar progressBar = findViewById(R.id.progressBar);
+
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -73,27 +58,26 @@ public class PhonesActivity extends AppCompatActivity {
             }
         });
 
-        PhonesViewModel model = new ViewModelProvider(this).get(PhonesViewModel.class);
-
-        model.getdataSnapshotLiveData().observe(this, new Observer<DataSnapshot>() {
+        setViewModel("Important phones", new OnDataChangedFireBase() {
             @Override
-            public void onChanged(DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null){
-                    phones.clear();
-                    for(DataSnapshot readData: dataSnapshot.getChildren()){
-                        Phones data = readData.getValue(Phones.class);
-                        phones.add(data);
+            public void onDataChanged(DataSnapshot dataSnapshot) {
+                phones.clear();
+                for(DataSnapshot readData: dataSnapshot.getChildren()){
+                    Phones data = readData.getValue(Phones.class);
+                    phones.add(data);
 
-                    }
+
                 }
-
                 phonesAdapter.notifyDataSetChanged();
+            }
 
-                progressBar.setVisibility(View.GONE);
-
+            @Override
+            public void onNoDataReceived() {
 
             }
         });
+
+
     }
     String phonNumber="";
     private void makeCall() {
@@ -126,9 +110,5 @@ public class PhonesActivity extends AppCompatActivity {
                 break;
         }
     }
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
+
 }
