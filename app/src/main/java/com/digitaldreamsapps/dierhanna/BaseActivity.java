@@ -2,6 +2,9 @@ package com.digitaldreamsapps.dierhanna;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -28,7 +31,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
          String l = sharedPreferences.getString("language", "");
+
          if (l.equals(Locale.getDefault().getLanguage())){
+             Log.e("languagelllll",l);
+             return;
+         }
+        Locale locals[] =Locale.getAvailableLocales();
+        Log.e("languagel local",locals[0].getLanguage());
+         if (locals[0].getLanguage().equals(l)){
+             Log.e("languagel local",locals[0].getLanguage());
              return;
          }
 
@@ -103,15 +114,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void reConfig(String language){
 
-        Locale locale;
 
-        locale = new Locale(language);
-        Configuration config = new Configuration(getResources().getConfiguration());
+
+        Locale locale = new Locale(language);
+
         Locale.setDefault(locale);
-        config.setLocale(locale);
 
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
+        Resources res = getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+
+        config.setLocale(locale);
+        config.locale = locale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+        createConfigurationContext(config);
+
+
         recreate();
 
     }

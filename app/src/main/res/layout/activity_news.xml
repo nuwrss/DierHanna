@@ -6,15 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".NewsActivity">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white"
-        android:theme="@style/ToolbarTheme"
-        android:background="?attr/colorPrimary">
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

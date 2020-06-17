@@ -30,5 +30,7 @@
     <string name="message">ההודעה</string>
     <string name="send">שלח</string>
     <string name="search" >חפש</string>
+    <string name="sdCardNotAvailable">אי אפשר להוריד את הקובץ , אין לך כרטיס זכרון</string>
+    <string name="problem_withDownload">בעייה בהורדת הקובץ</string>
 
 </resources>

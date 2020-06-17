@@ -55,7 +55,8 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
     private RecyclerView.LayoutManager RecyclerViewLayoutManager;
     private LinearLayoutManager HorizontalLayout;
     private BusCatAdapter busCatAdapter;
-    
+    private boolean mapLoadSuccess = false ;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,6 +162,8 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
     }
     private void searchQuery(String query) {
+        if (mMap==null || !mapLoadSuccess)
+            return;
         unRegisterViewModel();
 
 
@@ -251,10 +254,10 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
 
 
-        boolean success = googleMap.setMapStyle(new MapStyleOptions(getResources()
+         mapLoadSuccess = googleMap.setMapStyle(new MapStyleOptions(getResources()
                 .getString(R.string.style_map)));
 
-        if (!success) {
+        if (!mapLoadSuccess) {
             Log.e("error", "Style parsing failed.");
         }
 

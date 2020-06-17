@@ -30,4 +30,6 @@
     <string name="message">الرساله</string>
     <string name="send">ارسل</string>
     <string name="search" >ابحث</string>
+    <string name="sdCardNotAvailable">لا يمكنك ان تحمل الملف المطلوب ! لا يوجد لديك بطاقه ذاكره</string>
+    <string name="problem_withDownload">حدثت مشكله اثناء تحميل الملف</string>
 </resources>
