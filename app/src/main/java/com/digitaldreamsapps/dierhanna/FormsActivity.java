@@ -22,7 +22,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 import com.digitaldreamsapps.dierhanna.adapters.FormsAdapter;
-import com.digitaldreamsapps.dierhanna.database.DeirHannaDataBase;
+import com.digitaldreamsapps.dierhanna.repo.DeirHannaDataBase;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnFormClickListener;
 import com.digitaldreamsapps.dierhanna.models.Form;
@@ -89,7 +89,7 @@ public class FormsActivity extends BaseActivity {
                     forms.add(data);
                 }
 
-                DeirHannaDataBase.getInstance(getApplicationContext()).insertAll(forms);
+               insertDataToDataBase(forms);
 
                 formsAdapter.notifyDataSetChanged();
                 shimmerFrameLayout.stopShimmerAnimation();

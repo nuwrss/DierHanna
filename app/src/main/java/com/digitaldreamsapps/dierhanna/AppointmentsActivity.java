@@ -58,7 +58,7 @@ public class AppointmentsActivity extends BaseActivity {
                     appointments.add(data);
 
                 }
-
+                insertDataToDataBase(appointments);
                 appointmentsAdapter.notifyDataSetChanged();
                 shimmerFrameLayout.stopShimmerAnimation();
                 shimmerFrameLayout.setVisibility(View.GONE);

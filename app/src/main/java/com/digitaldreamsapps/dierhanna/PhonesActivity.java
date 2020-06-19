@@ -12,6 +12,7 @@ import android.view.View;
 import com.digitaldreamsapps.dierhanna.adapters.PhonesAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnPhoneClickListener;
+import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.Phones;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -72,7 +73,7 @@ public class PhonesActivity extends BaseActivity {
 
 
                 }
-
+                insertDataToDataBase(phones);
                 phonesAdapter.notifyDataSetChanged();
                 shimmerFrameLayout.stopShimmerAnimation();
                 shimmerFrameLayout.setVisibility(View.GONE);
@@ -80,7 +81,11 @@ public class PhonesActivity extends BaseActivity {
 
             @Override
             public void onDataChangedDataBase(Object o) {
-
+                phones.clear();
+                phones.addAll((List<Phones>)o);
+                phonesAdapter.notifyDataSetChanged();
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
             }
 
             @Override

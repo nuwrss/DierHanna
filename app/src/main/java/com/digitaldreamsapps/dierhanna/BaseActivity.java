@@ -16,6 +16,8 @@ import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.util.ConnectionStatus;
 import com.digitaldreamsapps.dierhanna.viewmodels.BaseViewModel;
 import com.google.firebase.database.DataSnapshot;
+
+import java.util.List;
 import java.util.Locale;
 import static com.digitaldreamsapps.dierhanna.util.Config.setLanguageConfig;
 
@@ -77,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         if (baseViewModel==null) {
             baseViewModel = new ViewModelProvider(this).get(BaseViewModel.class);
-            baseViewModel.setChildFirebase(childFireBase);
+            baseViewModel.setChildFirebase(childFireBase,t,this);
         }
         registerViewModel(onDataChangedRepository,t);
 
@@ -86,13 +88,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void unRegisterViewModel(){
         if (baseViewModel!=null)
-            baseViewModel.getdataSnapshotLiveData().removeObservers(this);
+            baseViewModel.getData().removeObservers(this);
     }
 
     private<T> void  registerViewModel(final OnDataChangedRepository onDataChangedRepository, final T t){
         showProgressBar();
 
-        if (baseViewModel.getdataSnapshotLiveData().hasActiveObservers()){
+        if (baseViewModel.getData().hasActiveObservers()){
             hideProgressBar();
             return;
         }
@@ -102,12 +104,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 setInternetConnection(connectionStatus.isConnected());
                 if (!connectionStatus.isConnected()){
 
-                    baseViewModel.getDataFromDatabase(t).observe(BaseActivity.this, new Observer() {
-                        @Override
-                        public void onChanged(Object o) {
-                            onDataChangedRepository.onDataChangedDataBase(o);
-                        }
-                    });
+
                     showMessage(getResources().getString(R.string.internet_problem));
 
                     hideProgressBar();
@@ -116,21 +113,24 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             }
         });
-        baseViewModel.getdataSnapshotLiveData().observe(this, new Observer<DataSnapshot>() {
+        baseViewModel.getData().observe(this, new Observer<T>() {
             @Override
-            public void onChanged(DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null){
+            public void onChanged(T t) {
+                if (t instanceof DataSnapshot){
+                    DataSnapshot dataSnapshot = (DataSnapshot)t;
                     if (dataSnapshot.getChildrenCount()==0){
                         showMessage(getResources().getString(R.string.no_data_available));
-                        return;
+
                     }
                     onDataChangedRepository.onDataChangedFirebase(dataSnapshot);
-                }else{
-                    showMessage(getResources().getString(R.string.no_data_available));
-                    onDataChangedRepository.onNoDataReceived();
+                }else {
+                    onDataChangedRepository.onDataChangedDataBase(t);
                 }
+
                 hideProgressBar();
             }
+
+
         });
     }
 
@@ -199,6 +199,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
         dialogView.show();
 
+
+    }
+
+    public <T> void insertDataToDataBase(List<T> tList){
+        baseViewModel.insertToDataBase(tList);
 
     }
 

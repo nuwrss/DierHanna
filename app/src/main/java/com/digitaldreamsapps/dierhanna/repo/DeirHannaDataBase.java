@@ -1,8 +1,11 @@
-package com.digitaldreamsapps.dierhanna.database;
+package com.digitaldreamsapps.dierhanna.repo;
 
 import android.content.Context;
 
 import androidx.room.Room;
+
+import com.digitaldreamsapps.dierhanna.database.BaseDao;
+import com.digitaldreamsapps.dierhanna.database.DaoRepository;
 
 import java.util.List;
 

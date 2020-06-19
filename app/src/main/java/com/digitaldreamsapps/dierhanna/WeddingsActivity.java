@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.digitaldreamsapps.dierhanna.adapters.WeddingsAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
+import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.Wedding;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeddingsActivity extends BaseActivity {
-    private List<Wedding> phones = new ArrayList<>();
-    private WeddingsAdapter phonesAdapter;
+    private List<Wedding> weddings = new ArrayList<>();
+    private WeddingsAdapter weddingsAdapter;
     private ShimmerFrameLayout shimmerFrameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,26 +35,31 @@ public class WeddingsActivity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
-        phonesAdapter = new WeddingsAdapter(phones);
-        recyclerView.setAdapter(phonesAdapter);
+        weddingsAdapter = new WeddingsAdapter(weddings);
+        recyclerView.setAdapter(weddingsAdapter);
 
         setViewModel("Weddings", new OnDataChangedRepository() {
             @Override
             public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
-                phones.clear();
+                weddings.clear();
                 for(DataSnapshot readData: dataSnapshot.getChildren()){
                     Wedding data = readData.getValue(Wedding.class);
-                    phones.add(data);
+                    weddings.add(data);
 
                 }
-                phonesAdapter.notifyDataSetChanged();
+                insertDataToDataBase(weddings);
+                weddingsAdapter.notifyDataSetChanged();
                 shimmerFrameLayout.stopShimmerAnimation();
                 shimmerFrameLayout.setVisibility(View.GONE);
             }
 
             @Override
             public void onDataChangedDataBase(Object o) {
-
+                weddings.clear();
+                weddings.addAll((List<Wedding>)o);
+                weddingsAdapter.notifyDataSetChanged();
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
             }
 
             @Override

@@ -1,8 +1,12 @@
 package com.digitaldreamsapps.dierhanna.models;
 
-import java.io.Serializable;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
 
+import java.io.Serializable;
+@Entity(primaryKeys = {"title"})
 public class News implements Serializable {
+    @NonNull
     private String title;
     private String article;
     private String image;

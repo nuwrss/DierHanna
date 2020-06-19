@@ -9,6 +9,7 @@ import android.view.View;
 import com.digitaldreamsapps.dierhanna.adapters.NewsAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnNewsClicked;
+import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.News;
 import com.digitaldreamsapps.dierhanna.models.Phones;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -57,6 +58,7 @@ public class NewsActivity extends BaseActivity {
                     news.add(data);
 
                 }
+                insertDataToDataBase(news);
                 shimmerFrameLayout.stopShimmerAnimation();
                 shimmerFrameLayout.setVisibility(View.GONE);
                 newsAdapter.notifyDataSetChanged();
@@ -64,7 +66,11 @@ public class NewsActivity extends BaseActivity {
 
             @Override
             public void onDataChangedDataBase(Object o) {
-
+                news.clear();
+                news.addAll((List<News>)o);
+                newsAdapter.notifyDataSetChanged();
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
             }
 
             @Override

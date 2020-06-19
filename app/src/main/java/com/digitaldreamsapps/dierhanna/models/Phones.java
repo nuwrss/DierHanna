@@ -1,8 +1,12 @@
 package com.digitaldreamsapps.dierhanna.models;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
 
+import java.util.ArrayList;
+@Entity(primaryKeys = {"title"})
 public class Phones {
+    @NonNull
     private String title ;
     private String email ;
     private ArrayList<String> phones ;
