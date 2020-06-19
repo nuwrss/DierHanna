@@ -32,5 +32,7 @@
     <string name="search" >חפש</string>
     <string name="sdCardNotAvailable">אי אפשר להוריד את הקובץ , אין לך כרטיס זכרון</string>
     <string name="problem_withDownload">בעייה בהורדת הקובץ</string>
+    <string name="no_data_available">אין תוכן כרגע</string>
+    <string name="internet_problem">בעייה בהתחברות לאינטרנט</string>
 
 </resources>

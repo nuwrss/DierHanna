@@ -12,7 +12,6 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 import android.Manifest;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -21,17 +20,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.digitaldreamsapps.dierhanna.adapters.FormsAdapter;
-import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedFireBase;
+import com.digitaldreamsapps.dierhanna.database.DeirHannaDataBase;
+import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnFormClickListener;
 import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.util.CheckForSDCard;
 import com.digitaldreamsapps.dierhanna.util.DownloadFileWorkManager;
 import com.digitaldreamsapps.dierhanna.util.LiveDataHelperWorkManager;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
 
 import java.io.File;
@@ -43,6 +41,7 @@ public class FormsActivity extends BaseActivity {
     private List<Form> forms = new ArrayList<>();
     private FormsAdapter formsAdapter;
     private  final int PERMISSION_REQUEST_CODE_WRITE_STORAGE = 100;
+    private ShimmerFrameLayout shimmerFrameLayout;
     private Form form;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,7 @@ public class FormsActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         formsAdapter=new FormsAdapter(forms);
         recyclerView.setAdapter(formsAdapter);
-
+        shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
 
         formsAdapter.setOnAppointmentClicked(new OnFormClickListener() {
             @Override
@@ -78,22 +77,42 @@ public class FormsActivity extends BaseActivity {
             }
         });
 
-        setViewModel("Forms", new OnDataChangedFireBase() {
+        setViewModel("Forms", new OnDataChangedRepository() {
+
+
             @Override
-            public void onDataChanged(DataSnapshot dataSnapshot) {
+            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
                 forms.clear();
+
                 for(DataSnapshot readData: dataSnapshot.getChildren()){
                     Form data = readData.getValue(Form.class);
                     forms.add(data);
                 }
+
+                DeirHannaDataBase.getInstance(getApplicationContext()).insertAll(forms);
+
                 formsAdapter.notifyDataSetChanged();
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDataChangedDataBase(Object o) {
+                forms.clear();
+                forms.addAll((List<Form>)o);
+                formsAdapter.notifyDataSetChanged();
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+
+
             }
 
             @Override
             public void onNoDataReceived() {
 
             }
-        });
+
+        },new Form());
 
     }
 
@@ -203,7 +222,10 @@ public class FormsActivity extends BaseActivity {
                         .putString("url",form.getLink())
                         .build())
                         .build();
-
+        if (!isInternetConnection()){
+            progressDialog.dismiss();
+            showMessage(getResources().getString(R.string.internet_problem));
+        }
         workManager.enqueue(downloadFile);
         workManager.getWorkInfoByIdLiveData(downloadFile.getId()).observe(this, new Observer<WorkInfo>() {
             @Override
@@ -212,10 +234,12 @@ public class FormsActivity extends BaseActivity {
                     WorkInfo.State state = workInfo.getState();
                     if (state == WorkInfo.State.SUCCEEDED){
                         startRead();
-                        progressDialog.dismiss();
+                        if (progressDialog.isShowing())
+                            progressDialog.dismiss();
                     }else{
                         if (state == WorkInfo.State.FAILED) {
-                            progressDialog.dismiss();
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
                             showMessage(getResources().getString(R.string.problem_withDownload));
                         }
                     }
@@ -225,16 +249,18 @@ public class FormsActivity extends BaseActivity {
         LiveDataHelperWorkManager.getInstance().observePercentage().observe(FormsActivity.this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                progressDialog.setProgress(integer);
-                if (integer>=100){
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                if (progressDialog.isShowing()) {
+                    progressDialog.setProgress(integer);
+                    if (integer >= 100) {
+
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+
                     }
-
-
-
                 }
 
             }
@@ -243,24 +269,16 @@ public class FormsActivity extends BaseActivity {
 
     }
 
-    private void showMessage(String msg){
-        final Dialog dialogView = new Dialog(this);
-        dialogView.setContentView(R.layout.message_dialog);
-        dialogView.setTitle("");
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
 
-        TextView messageTxt = dialogView.findViewById(R.id.message);
-        messageTxt.setText(msg);
-        Button submitButton = dialogView.findViewById(R.id.buttonOk);
-        submitButton.setText(getResources().getString(R.string.close));
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogView.cancel();
-            }
-        });
-        dialogView.show();
-
-
+    @Override
+    protected void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
     }
 
 

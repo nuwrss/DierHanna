@@ -24,7 +24,7 @@ import android.widget.TextView;
 import com.digitaldreamsapps.dierhanna.adapters.BusCatAdapter;
 import com.digitaldreamsapps.dierhanna.adapters.DierInfoWindowAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnBusnissCatClicked;
-import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedFireBase;
+import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.models.BusinessCat;
 import com.digitaldreamsapps.dierhanna.models.Place;
 import com.digitaldreamsapps.dierhanna.models.Business;
@@ -135,17 +135,23 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
     }
     private void showAll(){
-        setViewModel("BusinessCats", new OnDataChangedFireBase() {
+        setViewModel("BusinessCats", new OnDataChangedRepository() {
             @Override
-            public void onDataChanged(DataSnapshot dataSnapshot) {
+            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
                 Busness(dataSnapshot);
+            }
+
+            @Override
+            public void onDataChangedDataBase(Object o) {
+
             }
 
             @Override
             public void onNoDataReceived() {
 
             }
-        });
+
+        },new BusinessCat());
 
 
     }
@@ -154,6 +160,10 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
 
         removeMarkersFromMap();
+        if (businessCat.getPlaces().isEmpty()){
+            showMessage(getResources().getString(R.string.no_data_available));
+            return;
+        }
         for (final Place place : businessCat.getPlaces()) {
             addMarkersToMap(place);
 
@@ -170,6 +180,10 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
         
        removeMarkersFromMap();
 
+        if (businessCats.isEmpty()){
+            showMessage(getResources().getString(R.string.no_data_available));
+            return;
+        }
         for (BusinessCat businessCat : businessCats) {
             for (Place place : businessCat.getPlaces()) {
                 if (place.getName().contains(query) || place.getDescription().contains(query) || place.getName().toUpperCase().contains(query.toUpperCase()) || place.getDescription().toUpperCase().contains(query.toUpperCase())) {

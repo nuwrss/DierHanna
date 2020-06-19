@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import com.digitaldreamsapps.dierhanna.adapters.PhonesAdapter;
-import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedFireBase;
+import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnPhoneClickListener;
 import com.digitaldreamsapps.dierhanna.models.Phones;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
 
 
@@ -22,12 +24,12 @@ public class PhonesActivity extends BaseActivity {
 
     private List<Phones> phones = new ArrayList<>();
     private PhonesAdapter phonesAdapter;
-
+    private ShimmerFrameLayout shimmerFrameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phones);
-
+        shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
         setToolbar(getResources().getString(R.string.phone_numbers),true,true);
         setOnSupportNavigateUp(true);
 
@@ -58,9 +60,11 @@ public class PhonesActivity extends BaseActivity {
             }
         });
 
-        setViewModel("Important phones", new OnDataChangedFireBase() {
+        setViewModel("Important phones", new OnDataChangedRepository() {
+
+
             @Override
-            public void onDataChanged(DataSnapshot dataSnapshot) {
+            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
                 phones.clear();
                 for(DataSnapshot readData: dataSnapshot.getChildren()){
                     Phones data = readData.getValue(Phones.class);
@@ -68,14 +72,22 @@ public class PhonesActivity extends BaseActivity {
 
 
                 }
+
                 phonesAdapter.notifyDataSetChanged();
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDataChangedDataBase(Object o) {
+
             }
 
             @Override
             public void onNoDataReceived() {
 
             }
-        });
+        },new Phones());
 
 
     }
@@ -110,5 +122,15 @@ public class PhonesActivity extends BaseActivity {
                 break;
         }
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
 
+    @Override
+    protected void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
+    }
 }

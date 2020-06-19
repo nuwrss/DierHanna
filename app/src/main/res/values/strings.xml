@@ -33,5 +33,7 @@
     <string name="search">Search</string>
     <string name="sdCardNotAvailable">Cant download the file , you dont have sdCard</string>
     <string name="problem_withDownload">Problem with downloading file</string>
+    <string name="no_data_available">No data available right now</string>
+    <string name="internet_problem">Check your internet connection</string>
 
 </resources>

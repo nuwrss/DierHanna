@@ -1,6 +1,11 @@
 package com.digitaldreamsapps.dierhanna.models;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+
+@Entity(primaryKeys = {"title"})
 public class Form {
+    @NonNull
     private String title;
     private String link;
 

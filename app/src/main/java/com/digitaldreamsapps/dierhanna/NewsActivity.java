@@ -3,21 +3,24 @@ package com.digitaldreamsapps.dierhanna;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import com.digitaldreamsapps.dierhanna.adapters.NewsAdapter;
-import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedFireBase;
+import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnNewsClicked;
 import com.digitaldreamsapps.dierhanna.models.News;
+import com.digitaldreamsapps.dierhanna.models.Phones;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewsActivity extends BaseActivity {
-    private List<News> phones = new ArrayList<>();
-    private NewsAdapter phonesAdapter;
+    private List<News> news = new ArrayList<>();
+    private NewsAdapter newsAdapter;
+    private ShimmerFrameLayout shimmerFrameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +31,13 @@ public class NewsActivity extends BaseActivity {
 
 
 
+        shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        phonesAdapter=new NewsAdapter(phones);
-        phonesAdapter.setOnNewsClicked(new OnNewsClicked() {
+        newsAdapter=new NewsAdapter(news);
+        newsAdapter.setOnNewsClicked(new OnNewsClicked() {
             @Override
             public void onClick(News news) {
                 Intent intent = new Intent(NewsActivity.this,ArticleActivity.class);
@@ -42,31 +46,52 @@ public class NewsActivity extends BaseActivity {
 
             }
         });
-        recyclerView.setAdapter(phonesAdapter);
+        recyclerView.setAdapter(newsAdapter);
 
-        setViewModel("News", new OnDataChangedFireBase() {
+        setViewModel("News", new OnDataChangedRepository() {
             @Override
-            public void onDataChanged(DataSnapshot dataSnapshot) {
-                phones.clear();
+            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
+                news.clear();
                 for(DataSnapshot readData: dataSnapshot.getChildren()){
                     News data = readData.getValue(News.class);
-                    phones.add(data);
+                    news.add(data);
 
                 }
-                phonesAdapter.notifyDataSetChanged();
+                shimmerFrameLayout.stopShimmerAnimation();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                newsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onDataChangedDataBase(Object o) {
+
             }
 
             @Override
             public void onNoDataReceived() {
 
             }
-        });
+
+        }, new News());
 
 
 
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmerAnimation();
+    }
+
+    @Override
+    protected void onPause() {
+        shimmerFrameLayout.stopShimmerAnimation();
+        super.onPause();
+    }
+
 
 
 }

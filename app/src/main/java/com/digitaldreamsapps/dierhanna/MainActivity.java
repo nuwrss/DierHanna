@@ -8,7 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedFireBase;
+
+import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.models.News;
 import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
@@ -40,9 +41,9 @@ public class MainActivity extends BaseActivity {
 
 
 
-        setViewModel("MainNews", new OnDataChangedFireBase() {
+        setViewModel("MainNews", new OnDataChangedRepository() {
             @Override
-            public void onDataChanged(DataSnapshot dataSnapshot) {
+            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
                 for(DataSnapshot readData: dataSnapshot.getChildren()){
                     News data = readData.getValue(News.class);
                     mainText.setText(data.getTitle());
@@ -54,10 +55,18 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
+            public void onDataChangedDataBase(Object o) {
+
+            }
+
+            @Override
             public void onNoDataReceived() {
 
             }
-        });
+
+
+
+        },new News());
 
 
 

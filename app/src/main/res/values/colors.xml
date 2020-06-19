@@ -8,4 +8,6 @@
     <color name="yelleowline">#Faac13</color>
 
     <color name="black_overlay">#66000000</color>
+
+    <color name="colorGrey">#dddddd</color>
 </resources>

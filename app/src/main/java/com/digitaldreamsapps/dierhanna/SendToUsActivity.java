@@ -48,22 +48,18 @@ public class SendToUsActivity extends BaseActivity {
                 phoneEdit.setText("");
                 titleEdit.setText("");
                 messageEdit.setText("");
-                Context context = getApplicationContext();
-                CharSequence text = getResources().getString(R.string.send_success);
-                int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                showMessage(getResources().getString(R.string.send_success));
+
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Context context = getApplicationContext();
-                CharSequence text = getResources().getString(R.string.send_failed);
-                int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                showMessage(getResources().getString(R.string.send_failed));
+
+
             }
         });
 
