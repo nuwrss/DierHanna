@@ -30,6 +30,15 @@ public class DeirHannaDataBase {
         if (t==null || t.isEmpty()) return;
         BaseDao baseDao = daoRepository.getDao(t.get(0));
 
+
+            List<T> list = baseDao.getAllItems();
+            for (T to : list){
+                baseDao.delete(to);
+            }
+
+
+
+
             baseDao.insertAll(t);
 
     }
@@ -49,4 +58,6 @@ public class DeirHannaDataBase {
         return false;
 
     }
+
+
 }

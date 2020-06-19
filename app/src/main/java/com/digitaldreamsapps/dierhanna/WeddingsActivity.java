@@ -32,23 +32,12 @@ public class WeddingsActivity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
+        shimmerFrameLayout.startShimmerAnimation();
         weddingsAdapter = new WeddingsAdapter(weddings);
         recyclerView.setAdapter(weddingsAdapter);
 
         setViewModel("Weddings", new OnDataChangedRepository() {
-            @Override
-            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
-                weddings.clear();
-                for(DataSnapshot readData: dataSnapshot.getChildren()){
-                    Wedding data = readData.getValue(Wedding.class);
-                    weddings.add(data);
 
-                }
-                insertDataToDataBase(weddings);
-                weddingsAdapter.notifyDataSetChanged();
-                shimmerFrameLayout.stopShimmerAnimation();
-                shimmerFrameLayout.setVisibility(View.GONE);
-            }
 
             @Override
             public void onDataChangedDataBase(Object o) {

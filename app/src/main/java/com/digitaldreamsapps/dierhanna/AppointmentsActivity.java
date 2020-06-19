@@ -30,6 +30,7 @@ public class AppointmentsActivity extends BaseActivity {
         setOnSupportNavigateUp(true);
 
         shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
+        shimmerFrameLayout.startShimmerAnimation();
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -48,21 +49,7 @@ public class AppointmentsActivity extends BaseActivity {
         setViewModel("Appointments", new OnDataChangedRepository() {
 
 
-            @Override
-            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
-                appointments.clear();
 
-
-                for(DataSnapshot readData: dataSnapshot.getChildren()){
-                    Appointment data = readData.getValue(Appointment.class);
-                    appointments.add(data);
-
-                }
-                insertDataToDataBase(appointments);
-                appointmentsAdapter.notifyDataSetChanged();
-                shimmerFrameLayout.stopShimmerAnimation();
-                shimmerFrameLayout.setVisibility(View.GONE);
-            }
 
             @Override
             public void onDataChangedDataBase(Object o) {

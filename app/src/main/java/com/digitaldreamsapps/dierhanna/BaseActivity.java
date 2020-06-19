@@ -116,16 +116,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         baseViewModel.getData().observe(this, new Observer<T>() {
             @Override
             public void onChanged(T t) {
-                if (t instanceof DataSnapshot){
-                    DataSnapshot dataSnapshot = (DataSnapshot)t;
-                    if (dataSnapshot.getChildrenCount()==0){
-                        showMessage(getResources().getString(R.string.no_data_available));
 
-                    }
-                    onDataChangedRepository.onDataChangedFirebase(dataSnapshot);
-                }else {
                     onDataChangedRepository.onDataChangedDataBase(t);
-                }
+
 
                 hideProgressBar();
             }
@@ -202,9 +195,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    public <T> void insertDataToDataBase(List<T> tList){
-        baseViewModel.insertToDataBase(tList);
 
-    }
 
 }

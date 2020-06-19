@@ -9,12 +9,8 @@ import android.view.View;
 import com.digitaldreamsapps.dierhanna.adapters.NewsAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnNewsClicked;
-import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.News;
-import com.digitaldreamsapps.dierhanna.models.Phones;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.firebase.database.DataSnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +29,7 @@ public class NewsActivity extends BaseActivity {
 
 
         shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
+        shimmerFrameLayout.startShimmerAnimation();
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -50,19 +47,7 @@ public class NewsActivity extends BaseActivity {
         recyclerView.setAdapter(newsAdapter);
 
         setViewModel("News", new OnDataChangedRepository() {
-            @Override
-            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
-                news.clear();
-                for(DataSnapshot readData: dataSnapshot.getChildren()){
-                    News data = readData.getValue(News.class);
-                    news.add(data);
 
-                }
-                insertDataToDataBase(news);
-                shimmerFrameLayout.stopShimmerAnimation();
-                shimmerFrameLayout.setVisibility(View.GONE);
-                newsAdapter.notifyDataSetChanged();
-            }
 
             @Override
             public void onDataChangedDataBase(Object o) {

@@ -57,7 +57,7 @@ public class FormsActivity extends BaseActivity {
         formsAdapter=new FormsAdapter(forms);
         recyclerView.setAdapter(formsAdapter);
         shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
-
+        shimmerFrameLayout.startShimmerAnimation();
         formsAdapter.setOnAppointmentClicked(new OnFormClickListener() {
             @Override
             public void onClick(Form form1) {
@@ -80,21 +80,7 @@ public class FormsActivity extends BaseActivity {
         setViewModel("Forms", new OnDataChangedRepository() {
 
 
-            @Override
-            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
-                forms.clear();
 
-                for(DataSnapshot readData: dataSnapshot.getChildren()){
-                    Form data = readData.getValue(Form.class);
-                    forms.add(data);
-                }
-
-               insertDataToDataBase(forms);
-
-                formsAdapter.notifyDataSetChanged();
-                shimmerFrameLayout.stopShimmerAnimation();
-                shimmerFrameLayout.setVisibility(View.GONE);
-            }
 
             @Override
             public void onDataChangedDataBase(Object o) {

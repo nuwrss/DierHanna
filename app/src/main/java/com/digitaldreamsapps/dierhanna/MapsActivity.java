@@ -136,10 +136,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
     }
     private void showAll(){
         setViewModel("BusinessCats", new OnDataChangedRepository() {
-            @Override
-            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
-                Busness(dataSnapshot);
-            }
+
 
             @Override
             public void onDataChangedDataBase(Object o) {

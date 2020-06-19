@@ -1,11 +1,14 @@
 package com.digitaldreamsapps.dierhanna.database;
 
-import androidx.lifecycle.LiveData;
+
 import androidx.room.Dao;
 
 
+import androidx.room.Delete;
 import androidx.room.Query;
 
+
+import com.digitaldreamsapps.dierhanna.models.Appointment;
 import com.digitaldreamsapps.dierhanna.models.Form;
 
 import java.util.List;
@@ -13,8 +16,14 @@ import java.util.List;
 import io.reactivex.Flowable;
 
 @Dao
-public interface FormsDao extends BaseDao<Form>{
+public abstract class FormsDao extends BaseDao<Form>{
     @Query("SELECT * FROM form")
-    Flowable<List<Form>> getAll();
+    public abstract Flowable<List<Form>> getAll();
+
+    @Query("SELECT * FROM form")
+    public abstract List<Form> getAllItems();
+
+
+
 
 }

@@ -28,6 +28,7 @@ public class PhonesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phones);
         shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
+        shimmerFrameLayout.startShimmerAnimation();
         setToolbar(getResources().getString(R.string.phone_numbers),true,true);
         setOnSupportNavigateUp(true);
 
@@ -61,20 +62,6 @@ public class PhonesActivity extends BaseActivity {
         setViewModel("Important phones", new OnDataChangedRepository() {
 
 
-            @Override
-            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
-                phones.clear();
-                for(DataSnapshot readData: dataSnapshot.getChildren()){
-                    Phones data = readData.getValue(Phones.class);
-                    phones.add(data);
-
-
-                }
-                insertDataToDataBase(phones);
-                phonesAdapter.notifyDataSetChanged();
-                shimmerFrameLayout.stopShimmerAnimation();
-                shimmerFrameLayout.setVisibility(View.GONE);
-            }
 
             @Override
             public void onDataChangedDataBase(Object o) {

@@ -7,6 +7,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 
 import androidx.room.OnConflictStrategy;
+
+
 import androidx.room.Update;
 
 
@@ -15,17 +17,26 @@ import java.util.List;
 import io.reactivex.Flowable;
 
 @Dao
-public interface BaseDao <T> {
+public abstract class BaseDao <T> {
 
-    Flowable<List<T>> getAll();
+    public abstract Flowable<List<T>> getAll();
+    public abstract List<T> getAllItems();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<T> tList);
+    public abstract void insertAll(List<T> tList);
 
     @Delete
-    void delete(T t);
+    public abstract void delete(T t);
+
+    @Delete
+    public abstract void deleteAll(T... ts);
+
+
 
     @Update
-    void update(List<T> tList);
+    abstract void update(List<T> tList);
+
+
 
 
 }

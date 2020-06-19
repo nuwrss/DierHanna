@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
-
-import com.digitaldreamsapps.dierhanna.repo.DeirHannaDataBase;
 import com.digitaldreamsapps.dierhanna.repo.Repository;
 import com.digitaldreamsapps.dierhanna.util.ConnectionStatus;
+
+
 
 
 public class BaseViewModel <T> extends AndroidViewModel {
@@ -37,9 +37,7 @@ public class BaseViewModel <T> extends AndroidViewModel {
         return  repository.getConnectionStatusLiveData();
     }
 
-    public void insertToDataBase(T t){
-        repository.insertToDataBase(t);
-    }
+
     @Override
     protected void onCleared() {
         repository.clear();

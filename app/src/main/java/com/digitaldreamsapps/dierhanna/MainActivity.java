@@ -10,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
+import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.News;
 import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
 
 
 public class MainActivity extends BaseActivity {
@@ -42,20 +44,16 @@ public class MainActivity extends BaseActivity {
 
 
         setViewModel("MainNews", new OnDataChangedRepository() {
-            @Override
-            public void onDataChangedFirebase(DataSnapshot dataSnapshot) {
-                for(DataSnapshot readData: dataSnapshot.getChildren()){
-                    News data = readData.getValue(News.class);
-                    mainText.setText(data.getTitle());
 
-                    Picasso.get().load(data.getImage()).into(imageView);
-
-
-                }
-            }
 
             @Override
             public void onDataChangedDataBase(Object o) {
+                List<News>newsList = (List<News>)o;
+                if (newsList.isEmpty()) return;
+                News news = newsList.get(0);
+                mainText.setText(news.getTitle());
+
+                Picasso.get().load(news.getImage()).into(imageView);
 
             }
 

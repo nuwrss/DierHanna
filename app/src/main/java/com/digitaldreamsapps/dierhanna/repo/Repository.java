@@ -7,12 +7,23 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+
+import com.digitaldreamsapps.dierhanna.models.Appointment;
+import com.digitaldreamsapps.dierhanna.models.Form;
+import com.digitaldreamsapps.dierhanna.models.News;
+import com.digitaldreamsapps.dierhanna.models.Phones;
+import com.digitaldreamsapps.dierhanna.models.Wedding;
 import com.digitaldreamsapps.dierhanna.util.ConnectionLiveData;
 import com.digitaldreamsapps.dierhanna.util.ConnectionStatus;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 import java.util.List;
+
+
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -47,6 +58,7 @@ public class Repository <T>{
                     getDataFromDatabase();
                 }else{
                     getDataFromFireBase();
+                    getDataFromDatabase();
                 }
             }
         });
@@ -75,11 +87,45 @@ public class Repository <T>{
     }
 
     private void getDataFromFireBase(){
+        final ArrayList<T> tArrayList = new ArrayList<>();
         liveDataFireBase.observe(lifecycleOwner, new Observer<DataSnapshot>() {
             @Override
-            public void onChanged(DataSnapshot dataSnapshot) {
-                if (dataSnapshot!=null){
-                    data.postValue((T) dataSnapshot);
+            public void onChanged(final DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+                    tArrayList.clear();
+
+
+
+
+
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        T tObject = null;
+                        if (t instanceof Form) {
+                            tObject = (T) dataSnapshot1.getValue(Form.class);
+
+                        }
+                        if (t instanceof Wedding) {
+                            tObject = (T) dataSnapshot1.getValue(Wedding.class);
+
+                        }
+                        if (t instanceof Phones) {
+                            tObject = (T) dataSnapshot1.getValue(Phones.class);
+
+                        }
+                        if (t instanceof Appointment) {
+                            tObject = (T) dataSnapshot1.getValue(Appointment.class);
+
+                        }
+                        if (t instanceof News) {
+                            tObject = (T) dataSnapshot1.getValue(News.class);
+
+                        }
+
+
+                        tArrayList.add(tObject);
+                    }
+
+                    insertToDataBase(tArrayList);
                 }
             }
         });
