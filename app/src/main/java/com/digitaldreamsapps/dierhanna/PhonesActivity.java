@@ -12,12 +12,9 @@ import android.view.View;
 import com.digitaldreamsapps.dierhanna.adapters.PhonesAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnPhoneClickListener;
-import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.Phones;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
-
-
 import java.util.ArrayList;
 import java.util.List;
 

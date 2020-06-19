@@ -5,14 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
-
 import com.digitaldreamsapps.dierhanna.adapters.WeddingsAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
-import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.Wedding;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
 

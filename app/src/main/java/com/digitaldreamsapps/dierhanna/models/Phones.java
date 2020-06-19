@@ -2,7 +2,6 @@ package com.digitaldreamsapps.dierhanna.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-
 import java.util.ArrayList;
 @Entity(primaryKeys = {"title"})
 public class Phones {

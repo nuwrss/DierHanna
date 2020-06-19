@@ -1,11 +1,7 @@
 package com.digitaldreamsapps.dierhanna.util;
 
 import androidx.room.TypeConverter;
-
 import java.util.ArrayList;
-
-
-
 public class Converters {
     @TypeConverter
     public static String fromArrayList(ArrayList<String> strings) {

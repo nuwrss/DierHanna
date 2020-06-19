@@ -5,7 +5,6 @@ package com.digitaldreamsapps.dierhanna.database;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-
 import com.digitaldreamsapps.dierhanna.models.Appointment;
 import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.News;
