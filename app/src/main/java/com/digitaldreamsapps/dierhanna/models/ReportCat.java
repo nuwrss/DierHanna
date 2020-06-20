@@ -6,8 +6,10 @@ import androidx.room.Entity;
 import com.digitaldreamsapps.dierhanna.util.Config;
 import com.digitaldreamsapps.dierhanna.util.Language;
 
+import java.io.Serializable;
+
 @Entity(primaryKeys = {"nameAr"})
-public class ReportCat {
+public class ReportCat implements Serializable {
     @NonNull
     private String nameAr;
     private String nameHe;

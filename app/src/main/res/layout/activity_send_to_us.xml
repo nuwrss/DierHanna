@@ -9,6 +9,8 @@
     <include layout="@layout/toolbar" />
     <TextView
         android:layout_width="wrap_content"
+        android:id="@+id/explain"
+        android:layout_gravity="center"
         android:layout_margin="16dp"
         android:text="@string/explain_send_to_us"
         android:layout_height="wrap_content">

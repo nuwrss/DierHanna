@@ -1,13 +1,12 @@
 package com.digitaldreamsapps.dierhanna;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import com.digitaldreamsapps.dierhanna.models.ReportCat;
 import com.digitaldreamsapps.dierhanna.models.SendToUs;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,7 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SendToUsActivity extends BaseActivity {
 
-    EditText nameEdit , phoneEdit , titleEdit , messageEdit ;
+    private EditText nameEdit , phoneEdit , titleEdit , messageEdit ;
+    private TextView explainText;
+    private ReportCat reportCat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,12 @@ public class SendToUsActivity extends BaseActivity {
         phoneEdit = findViewById(R.id.phoneedit);
         titleEdit = findViewById(R.id.titleedit);
         messageEdit = findViewById(R.id.messageedit);
+        explainText = findViewById(R.id.explain);
+
+         reportCat =(ReportCat) getIntent().getSerializableExtra("reportCat");
+        if (reportCat!=null){
+            explainText.setText(reportCat.getName());
+        }
 
     }
 
@@ -36,8 +43,15 @@ public class SendToUsActivity extends BaseActivity {
         String phone = phoneEdit.getText().toString();
         String title = titleEdit.getText().toString();
         String message = messageEdit.getText().toString();
+        DatabaseReference mDatabase ;
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("sendToUs");
+         if (reportCat!=null){
+             mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports").child(reportCat.getNameAr());
+
+         }else {
+             mDatabase = FirebaseDatabase.getInstance().getReference().child("sendToUs");
+
+         }
         DatabaseReference newPostRef = mDatabase.push();
         newPostRef.setValue(new SendToUs(name,phone,title,message)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

@@ -1,5 +1,6 @@
 package com.digitaldreamsapps.dierhanna;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +36,9 @@ public class ReportActivity extends BaseActivity {
         reportCatAdapter.setOnReportCatClicked(new OnReportCatClicked() {
             @Override
             public void onClick(ReportCat reportCat) {
+                Intent intent = new Intent(ReportActivity.this,SendToUsActivity.class);
+                intent.putExtra("reportCat",reportCat);
+                startActivity(intent);
 
             }
         });
