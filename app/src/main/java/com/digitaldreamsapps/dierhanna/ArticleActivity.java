@@ -12,15 +12,15 @@ public class ArticleActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
-
-        setToolbar(getResources().getString(R.string.news),true,true);
+        News news = (News) getIntent().getSerializableExtra("news");
+        setToolbar(news.getTitle(),true,true);
         setOnSupportNavigateUp(true);
 
         ImageView imageView = findViewById(R.id.mainimage);
         TextView title = findViewById(R.id.maintext);
         TextView textView = findViewById(R.id.text);
 
-       News news = (News) getIntent().getSerializableExtra("news");
+
 
 
 

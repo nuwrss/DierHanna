@@ -30,7 +30,6 @@ import com.digitaldreamsapps.dierhanna.util.CheckForSDCard;
 import com.digitaldreamsapps.dierhanna.util.DownloadFileWorkManager;
 import com.digitaldreamsapps.dierhanna.util.LiveDataHelperWorkManager;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.firebase.database.DataSnapshot;
 
 import java.io.File;
 import java.util.ArrayList;

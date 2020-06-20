@@ -1,24 +1,47 @@
 package com.digitaldreamsapps.dierhanna.models;
 
+import androidx.annotation.NonNull;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+
 import com.digitaldreamsapps.dierhanna.util.Config;
 import com.digitaldreamsapps.dierhanna.util.Language;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
-
+@Entity(primaryKeys = {"nameAr"})
 public class BusinessCat {
+    @NonNull
     private String nameAr;
     private String nameHe;
+
+    @NonNull
+    public String getNameAr() {
+        return nameAr;
+    }
+
+    public String getNameHe() {
+        return nameHe;
+    }
+
+    public String getNameEn() {
+        return nameEn;
+    }
+
     private String nameEn;
     private String icon;
 
-    public ArrayList<Place> getPlaces() {
+    public ArrayList<Business> getPlaces() {
         return places;
     }
 
-    private ArrayList<Place>places=new ArrayList<>();
+    private ArrayList<Business>places=new ArrayList<>();
 
-    public void addPlace(Place place){
+    public void setPlaces(ArrayList<Business> places) {
+        this.places = places;
+    }
+
+    public void addPlace(Business place){
         places.add(place);
     }
     public void clearPlaces(){

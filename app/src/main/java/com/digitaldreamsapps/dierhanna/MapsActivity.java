@@ -140,7 +140,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
             @Override
             public void onDataChangedDataBase(Object o) {
-
+                showBussniss((ArrayList<BusinessCat>)o);
             }
 
             @Override
@@ -152,6 +152,31 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
 
     }
+
+    private void showBussniss(ArrayList<BusinessCat> o) {
+
+
+        DierInfoWindowAdapter customInfoWindow = new DierInfoWindowAdapter(this);
+        mMap.setInfoWindowAdapter(customInfoWindow);
+        removeMarkersFromMap();
+        businessCats.clear();
+        businessCats.addAll(o);
+        busCatAdapter.notifyDataSetChanged();
+
+        for (BusinessCat businessCat : businessCats) {
+            for (Place place : businessCat.getPlaces()) {
+                addMarkersToMap(place);
+            }
+
+        }
+
+
+
+
+
+
+    }
+
     private void categorySelected(BusinessCat businessCat){
        unRegisterViewModel();
 

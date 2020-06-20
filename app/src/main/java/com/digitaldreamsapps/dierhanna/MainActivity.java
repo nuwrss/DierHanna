@@ -8,11 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
-import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.News;
-import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -169,6 +166,12 @@ public class MainActivity extends BaseActivity {
 
     public void sendToUsclicked(View view) {
         Intent intent = new Intent(this,SendToUsActivity.class);
+
+        startActivity(intent);
+    }
+
+    public void reportClicked(View view) {
+        Intent intent = new Intent(this,ReportActivity.class);
 
         startActivity(intent);
     }
