@@ -15,10 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.util.ConnectionStatus;
 import com.digitaldreamsapps.dierhanna.viewmodels.BaseViewModel;
-import com.google.firebase.database.DataSnapshot;
-
-import java.util.List;
 import java.util.Locale;
+
+
 import static com.digitaldreamsapps.dierhanna.util.Config.setLanguageConfig;
 
 public abstract class BaseActivity extends AppCompatActivity {

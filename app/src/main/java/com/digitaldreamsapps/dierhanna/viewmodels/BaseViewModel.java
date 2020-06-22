@@ -1,16 +1,12 @@
 package com.digitaldreamsapps.dierhanna.viewmodels;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import com.digitaldreamsapps.dierhanna.repo.Repository;
 import com.digitaldreamsapps.dierhanna.util.ConnectionStatus;
-
-
-
 
 public class BaseViewModel <T> extends AndroidViewModel {
 

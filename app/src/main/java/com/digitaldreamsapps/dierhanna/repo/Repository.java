@@ -1,15 +1,11 @@
 package com.digitaldreamsapps.dierhanna.repo;
 
 import android.app.Application;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-
-import com.digitaldreamsapps.dierhanna.adapters.DierInfoWindowAdapter;
 import com.digitaldreamsapps.dierhanna.models.Appointment;
 import com.digitaldreamsapps.dierhanna.models.Business;
 import com.digitaldreamsapps.dierhanna.models.BusinessCat;
@@ -23,12 +19,8 @@ import com.digitaldreamsapps.dierhanna.util.ConnectionStatus;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -59,12 +51,10 @@ public class Repository <T>{
         getConnectionStatusLiveData().observe(lifecycleOwner, new Observer<ConnectionStatus>() {
             @Override
             public void onChanged(ConnectionStatus connectionStatus) {
-                if (!connectionStatus.isConnected()){
-                    getDataFromDatabase();
-                }else{
+                if (connectionStatus.isConnected()) {
                     getDataFromFireBase();
-                    getDataFromDatabase();
                 }
+                getDataFromDatabase();
             }
         });
 

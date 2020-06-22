@@ -11,9 +11,7 @@ import android.widget.TextView;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.models.News;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 
 public class MainActivity extends BaseActivity {
 

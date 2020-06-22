@@ -8,15 +8,20 @@ import java.util.List;
 import io.reactivex.Flowable;
 
 public class DeirHannaDataBase {
-    private Context mCtx;
+
     private static DeirHannaDataBase mInstance;
     private DaoRepository daoRepository;
+
     private DeirHannaDataBase(Context mCtx) {
-        this.mCtx = mCtx;
+
 
 
         daoRepository = Room.databaseBuilder(mCtx, DaoRepository.class, "DeirHannaDataBase").allowMainThreadQueries().build();
     }
+
+
+
+
     public static synchronized DeirHannaDataBase getInstance(Context mCtx) {
         if (mInstance == null) {
             mInstance = new DeirHannaDataBase(mCtx);
