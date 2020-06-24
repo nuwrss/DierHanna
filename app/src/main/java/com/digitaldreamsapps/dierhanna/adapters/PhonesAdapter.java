@@ -10,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digitaldreamsapps.dierhanna.R;
-import com.digitaldreamsapps.dierhanna.interfaces.OnAppointmentClicked;
 import com.digitaldreamsapps.dierhanna.interfaces.OnPhoneClickListener;
-import com.digitaldreamsapps.dierhanna.models.Appointment;
 import com.digitaldreamsapps.dierhanna.models.Phones;
 
 import java.util.List;

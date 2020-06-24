@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import com.digitaldreamsapps.dierhanna.adapters.NewsAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
-import com.digitaldreamsapps.dierhanna.interfaces.OnNewsClicked;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.News;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import java.util.ArrayList;
@@ -35,15 +35,15 @@ public class NewsActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         newsAdapter=new NewsAdapter(news);
-        newsAdapter.setOnNewsClicked(new OnNewsClicked() {
+        newsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
-            public void onClick(News news) {
+            public <T> void onItemClicked(T item) {
                 Intent intent = new Intent(NewsActivity.this,ArticleActivity.class);
-                intent.putExtra("news",news);
+                intent.putExtra("news",(News)item);
                 startActivity(intent);
-
             }
         });
+
         recyclerView.setAdapter(newsAdapter);
 
         setViewModel("News", new OnDataChangedRepository() {

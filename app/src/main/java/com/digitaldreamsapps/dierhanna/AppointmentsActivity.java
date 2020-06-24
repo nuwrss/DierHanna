@@ -8,11 +8,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import com.digitaldreamsapps.dierhanna.adapters.AppointmentsAdapter;
-import com.digitaldreamsapps.dierhanna.interfaces.OnAppointmentClicked;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.Appointment;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.firebase.database.DataSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +36,16 @@ public class AppointmentsActivity extends BaseActivity {
         appointmentsAdapter= new AppointmentsAdapter(appointments);
         recyclerView.setAdapter(appointmentsAdapter);
 
-        appointmentsAdapter.setOnAppointmentClicked(new OnAppointmentClicked() {
+        appointmentsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
-            public void onClick(Appointment appointment) {
+            public <T> void onItemClicked(T item) {
+                Appointment appointment =(Appointment)item;
                 String url = appointment.getLink();
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
             }
+
         });
         setViewModel("Appointments", new OnDataChangedRepository() {
 

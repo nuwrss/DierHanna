@@ -4,31 +4,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.digitaldreamsapps.dierhanna.R;
-import com.digitaldreamsapps.dierhanna.interfaces.OnBusnissCatClicked;
-import com.digitaldreamsapps.dierhanna.interfaces.OnReportCatClicked;
-import com.digitaldreamsapps.dierhanna.models.BusinessCat;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.ReportCat;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class ReportCatAdapter extends RecyclerView.Adapter<ReportCatAdapter.ViewHolder> {
 
 
-    public void setOnReportCatClicked(OnReportCatClicked onReportCatClicked) {
-        this.onReportCatClicked = onReportCatClicked;
+
+
+    private OnItemClickedListener onItemClickedListener;
+
+    public void setOnItemClickedListener(OnItemClickedListener onItemClickedListener) {
+        this.onItemClickedListener = onItemClickedListener;
     }
-
-    private OnReportCatClicked onReportCatClicked;
-
-
-
-
 
     @NonNull
     @Override
@@ -46,7 +39,7 @@ public class ReportCatAdapter extends RecyclerView.Adapter<ReportCatAdapter.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onReportCatClicked.onClick(reportCat);
+                onItemClickedListener.onItemClicked(reportCat);
             }
         });
 

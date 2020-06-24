@@ -9,20 +9,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.digitaldreamsapps.dierhanna.R;
-import com.digitaldreamsapps.dierhanna.interfaces.OnAppointmentClicked;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.Appointment;
 
 import java.util.List;
 
 public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapter.ViewHolder> {
 
-    private OnAppointmentClicked onAppointmentClicked;
+    private OnItemClickedListener onItemClickedListener;
 
-
-
-    public void setOnAppointmentClicked(OnAppointmentClicked onAppointmentClicked) {
-        this.onAppointmentClicked = onAppointmentClicked;
+    public void setOnItemClickedListener(OnItemClickedListener onItemClickedListener) {
+        this.onItemClickedListener = onItemClickedListener;
     }
+
+
+
+
+
+
 
     @NonNull
     @Override
@@ -40,7 +44,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAppointmentClicked.onClick(appointment);
+                onItemClickedListener.onItemClicked(appointment);
             }
         });
 

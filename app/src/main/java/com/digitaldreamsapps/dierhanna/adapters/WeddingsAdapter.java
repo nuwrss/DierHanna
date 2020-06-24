@@ -7,21 +7,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.digitaldreamsapps.dierhanna.R;
-import com.digitaldreamsapps.dierhanna.interfaces.OnFormClickListener;
-import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.models.Wedding;
-
 import java.util.List;
 
 public class WeddingsAdapter extends RecyclerView.Adapter<WeddingsAdapter.ViewHolder> {
-
-
-
-
-
-
 
     @NonNull
     @Override
@@ -34,21 +24,21 @@ public class WeddingsAdapter extends RecyclerView.Adapter<WeddingsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Wedding appointment = appointments.get(position);
+        final Wedding appointment = weddings.get(position);
         holder.itemDetail.setText(appointment.getTitle() + "  " + appointment.getDate());
 
 
     }
-    List<Wedding> appointments;
-    public WeddingsAdapter(List<Wedding> appointments){
-        this.appointments = appointments;
+    List<Wedding> weddings;
+    public WeddingsAdapter(List<Wedding> weddings){
+        this.weddings= weddings;
     }
 
 
 
     @Override
     public int getItemCount() {
-        return appointments.size();
+        return weddings.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -4,31 +4,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.digitaldreamsapps.dierhanna.R;
-import com.digitaldreamsapps.dierhanna.interfaces.OnBusnissCatClicked;
-import com.digitaldreamsapps.dierhanna.interfaces.OnFormClickListener;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.BusinessCat;
-import com.digitaldreamsapps.dierhanna.models.Form;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class BusCatAdapter extends RecyclerView.Adapter<BusCatAdapter.ViewHolder> {
 
-    public void setOnBusnissCatClicked(OnBusnissCatClicked onBusnissCatClicked) {
-        this.onBusnissCatClicked = onBusnissCatClicked;
+
+
+    private OnItemClickedListener onItemClickedListener;
+
+    public void setOnItemClickedListener(OnItemClickedListener onItemClickedListener) {
+        this.onItemClickedListener = onItemClickedListener;
     }
-
-    private OnBusnissCatClicked onBusnissCatClicked;
-
-
-
-
 
     @NonNull
     @Override
@@ -46,7 +38,7 @@ public class BusCatAdapter extends RecyclerView.Adapter<BusCatAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBusnissCatClicked.onClick(businessCat);
+                onItemClickedListener.onItemClicked(businessCat);
             }
         });
 

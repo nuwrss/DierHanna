@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.digitaldreamsapps.dierhanna.R;
-import com.digitaldreamsapps.dierhanna.interfaces.OnFormClickListener;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.Form;
 import java.io.File;
 import java.util.List;
@@ -17,14 +17,14 @@ import java.util.List;
 public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.ViewHolder> {
 
     private List<Form> forms;
-    private OnFormClickListener onAppointmentClicked;
+    private OnItemClickedListener onItemClickedListener;
 
     public FormsAdapter(List<Form> forms){
         this.forms = forms;
     }
 
-    public void setOnAppointmentClicked(OnFormClickListener onAppointmentClicked) {
-        this.onAppointmentClicked = onAppointmentClicked;
+    public void setOnItemClickedListener(OnItemClickedListener onItemClickedListener) {
+        this.onItemClickedListener = onItemClickedListener;
     }
 
     @NonNull
@@ -44,13 +44,13 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAppointmentClicked.onClick(form);
+                onItemClickedListener.onItemClicked(form);
             }
         });
         holder.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAppointmentClicked.onClick(form);
+                onItemClickedListener.onItemClicked(form);
 
             }
         });

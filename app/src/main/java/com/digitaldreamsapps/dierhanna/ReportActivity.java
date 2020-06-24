@@ -3,13 +3,13 @@ package com.digitaldreamsapps.dierhanna;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import androidx.recyclerview.widget.LinearLayoutManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.digitaldreamsapps.dierhanna.adapters.ReportCatAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
-import com.digitaldreamsapps.dierhanna.interfaces.OnReportCatClicked;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.ReportCat;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import java.util.ArrayList;
@@ -33,15 +33,15 @@ public class ReportActivity extends BaseActivity {
 
         recyclerView.setLayoutManager(gridLayoutManager);
         reportCatAdapter=new ReportCatAdapter(reportCats);
-        reportCatAdapter.setOnReportCatClicked(new OnReportCatClicked() {
+        reportCatAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
-            public void onClick(ReportCat reportCat) {
+            public <T> void onItemClicked(T item) {
                 Intent intent = new Intent(ReportActivity.this,SendToUsActivity.class);
-                intent.putExtra("reportCat",reportCat);
+                intent.putExtra("reportCat",(ReportCat)item);
                 startActivity(intent);
-
             }
         });
+
         recyclerView.setAdapter(reportCatAdapter);
         setViewModel("Report Categories", new OnDataChangedRepository() {
 

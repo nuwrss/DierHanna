@@ -23,7 +23,7 @@ import android.view.View;
 import android.widget.Toast;
 import com.digitaldreamsapps.dierhanna.adapters.FormsAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
-import com.digitaldreamsapps.dierhanna.interfaces.OnFormClickListener;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.util.CheckForSDCard;
 import com.digitaldreamsapps.dierhanna.util.DownloadFileWorkManager;
@@ -61,9 +61,10 @@ public class FormsActivity extends BaseActivity {
         recyclerView.setAdapter(formsAdapter);
         shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
         shimmerFrameLayout.startShimmerAnimation();
-        formsAdapter.setOnAppointmentClicked(new OnFormClickListener() {
+        formsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
-            public void onClick(Form form1) {
+            public <T> void onItemClicked(T item) {
+                Form form1= (Form)item;
                 form=form1;
                 if (!CheckForSDCard.isSDCardPresent()){
 
@@ -74,11 +75,9 @@ public class FormsActivity extends BaseActivity {
                 fileAlreadyDownloaded(form1);
 
 
-
-
-
             }
         });
+
 
         setViewModel("Forms", new OnDataChangedRepository() {
 

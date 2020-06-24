@@ -23,8 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.digitaldreamsapps.dierhanna.adapters.BusCatAdapter;
 import com.digitaldreamsapps.dierhanna.adapters.DierInfoWindowAdapter;
-import com.digitaldreamsapps.dierhanna.interfaces.OnBusnissCatClicked;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.BusinessCat;
 import com.digitaldreamsapps.dierhanna.models.Place;
 import com.digitaldreamsapps.dierhanna.models.Business;
@@ -42,7 +42,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-
 import java.util.ArrayList;
 
 public class MapsActivity extends BaseActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
@@ -85,12 +84,13 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
 
         busCatAdapter= new BusCatAdapter(businessCats);
-        busCatAdapter.setOnBusnissCatClicked(new OnBusnissCatClicked() {
+        busCatAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
-            public void onClick(BusinessCat businessCat) {
-                categorySelected(businessCat);
+            public <T> void onItemClicked(T item) {
+                categorySelected((BusinessCat)item);
             }
         });
+
 
         recyclerView
                 = (RecyclerView)findViewById(
