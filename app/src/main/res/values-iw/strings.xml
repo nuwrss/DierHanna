@@ -34,5 +34,8 @@
     <string name="problem_withDownload">בעייה בהורדת הקובץ</string>
     <string name="no_data_available">אין תוכן כרגע</string>
     <string name="internet_problem">בעייה בהתחברות לאינטרנט</string>
+    <string name="file_downloaded">הורדת הקובץ הסתיימה בהצלחה</string>
+    <string name="failed_to_download_file">בעיהי בהורדת הקובץ!!</string>
+
 
 </resources>

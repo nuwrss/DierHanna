@@ -47,6 +47,11 @@ public class FormsActivity extends BaseActivity {
         setContentView(R.layout.activity_forms);
        setToolbar(getResources().getString(R.string.forms),true,true);
        setOnSupportNavigateUp(true);
+        File pdf = (File) getIntent().getSerializableExtra("file");
+        if (pdf!=null){
+            startRead(pdf);
+        }
+
 
 
         RecyclerView recyclerView = findViewById(R.id.recycler);
@@ -113,6 +118,19 @@ public class FormsActivity extends BaseActivity {
         startRead();
     }
 
+    private void startRead(File file) {
+
+        Intent intent=new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.fromFile(file);
+        intent.setDataAndType(uri, "application/pdf");
+        try {
+            startActivity(intent);
+        }catch (ActivityNotFoundException e){
+            Toast.makeText( this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
     private void startRead() {
         File directory = new File(Environment.getExternalStorageDirectory() + "/" + "DierHanna");
         if (!directory.exists()) {
@@ -227,6 +245,7 @@ public class FormsActivity extends BaseActivity {
                             showMessage(getResources().getString(R.string.problem_withDownload));
                         }
                     }
+                    formsAdapter.notifyDataSetChanged();
                 }
             }
         });

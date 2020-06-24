@@ -34,4 +34,7 @@
     <string name="problem_withDownload">حدثت مشكله اثناء تحميل الملف</string>
     <string name="no_data_available">لا توجد معلومات الان</string>
     <string name="internet_problem">مشكله في الاتصال بالانترنت</string>
+    <string name="file_downloaded">تم تحميل الملف بنجاح</string>
+    <string name="failed_to_download_file">مشكله في تحميل الملف !!</string>
+
 </resources>

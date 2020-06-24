@@ -23,9 +23,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ReportActivity"></activity>
-        <activity android:name=".SendToUsActivity" />
-        <activity android:name=".WeatherActivity" />
+        <activity android:name=".ReportActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            ></activity>
+        <activity android:name=".SendToUsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".WeatherActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,6 +50,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop">
             <meta-data
                 android:name="android.app.searchable"
@@ -50,14 +61,35 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-        <activity android:name=".ArticleActivity" />
-        <activity android:name=".NewsActivity" />
-        <activity android:name=".WeddingsActivity" />
-        <activity android:name=".FormsActivity" />
-        <activity android:name=".PhonesActivity" />
-        <activity android:name=".AppointmentsActivity" />
-        <activity android:name=".admin.AdminActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ArticleActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".NewsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".WeddingsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".FormsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".PhonesActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".AppointmentsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

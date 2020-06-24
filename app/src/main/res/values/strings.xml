@@ -35,5 +35,8 @@
     <string name="problem_withDownload">Problem with downloading file</string>
     <string name="no_data_available">No data available right now</string>
     <string name="internet_problem">Check your internet connection</string>
+    <string name="file_downloaded">File Downloaded Successfully</string>
+    <string name="failed_to_download_file">Problem when trying to download the file !!</string>
+
 
 </resources>
