@@ -33,18 +33,20 @@ public class Repository <T>{
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private Application application;
     private MutableLiveData<T> data = new MutableLiveData<T>();
-    private T t ;
+
     private LifecycleOwner lifecycleOwner;
+
+    private String className ;
 
     public Repository(Application application, LifecycleOwner lifecycleOwner){
         this.application=application;
         this.lifecycleOwner = lifecycleOwner;
     }
-    public void setFirebaseChild(String childFirebase ,T t){
+    public void setFirebaseChild(String childFirebase ){
         mDatabase = FirebaseDatabase.getInstance().getReference().child(childFirebase);
         liveDataFireBase = new FirebaseDatabaseRepository(mDatabase);
         connectionLiveData = new ConnectionLiveData(application);
-        this.t=t;
+        this.className=childFirebase;
     }
     @NonNull
     public LiveData<T> getData(){
@@ -64,8 +66,8 @@ public class Repository <T>{
         return  connectionLiveData;
     }
     private  void getDataFromDatabase(){
-        if (DeirHannaDataBase.getInstance(application).isAvailableDao(t)) {
-            Disposable disposable = DeirHannaDataBase.getInstance(application).getAll(t).subscribeOn(Schedulers.io())
+        if (DeirHannaDataBase.getInstance(application).isAvailableDao(this.className)) {
+            Disposable disposable = DeirHannaDataBase.getInstance(application).getAll(this.className).subscribeOn(Schedulers.io())
                     .subscribe(new Consumer() {
 
                         @Override
@@ -95,38 +97,39 @@ public class Repository <T>{
 
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         T tObject = null;
-                        if (t instanceof Form) {
+                        if (className.equals("Form")) {
                             tObject = (T) dataSnapshot1.getValue(Form.class);
 
                         }
-                        if (t instanceof Wedding) {
+                        if (className.equals("Wedding")) {
                             tObject = (T) dataSnapshot1.getValue(Wedding.class);
 
                         }
-                        if (t instanceof Phones) {
+                        if (className.equals("Phones")) {
                             tObject = (T) dataSnapshot1.getValue(Phones.class);
 
                         }
-                        if (t instanceof Appointment) {
+                        if (className.equals("Appointment")) {
                             tObject = (T) dataSnapshot1.getValue(Appointment.class);
 
                         }
-                        if (t instanceof News) {
+                        if (className.equals("News")) {
                             tObject = (T) dataSnapshot1.getValue(News.class);
 
                         }
 
-                        if (t instanceof ReportCat) {
+                        if (className.equals("ReportCat")) {
                             tObject = (T) dataSnapshot1.getValue(ReportCat.class);
 
                         }
 
-                        if (t instanceof BusinessCat) {
+                        if (className.equals("BusinessCat")) {
                            // tObject = (T) dataSnapshot1.getValue(BusinessCat.class);
 
                            tObject = (T) convertToCat(dataSnapshot1);
 
                         }
+
 
 
                         tArrayList.add(tObject);

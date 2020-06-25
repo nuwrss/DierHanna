@@ -25,34 +25,38 @@ public abstract class DaoRepository extends RoomDatabase {
     public abstract WeddingDao weddingDao();
     public abstract BusinessCatDao businessCatDao();
     public abstract ReportCatDao reportCatDao();
-    public <T> BaseDao getDao(T t){
-        if (t.getClass().equals(Form.class)){
+    public  BaseDao getDao(String t){
+
+
+
+
+        if (t.equals("Form")){
 
             return formsDao();
         }
-        if (t.getClass().equals(Appointment.class)){
+        if (t.equals("Appointment")){
 
             return appointmentDao();
         }
-        if (t.getClass().equals(Phones.class)){
+        if (t.equals("Phones")){
 
             return phonesDao();
         }
-        if (t.getClass().equals(News.class)){
+        if (t.equals("News")){
 
             return newsDao();
         }
-        if (t.getClass().equals(Wedding.class)){
+        if (t.equals("Wedding")){
 
             return weddingDao();
         }
 
-        if (t.getClass().equals(BusinessCat.class)){
+        if (t.equals("BusinessCat")){
 
             return businessCatDao();
         }
 
-        if (t.getClass().equals(ReportCat.class)){
+        if (t.equals("ReportCat")){
 
             return reportCatDao();
         }

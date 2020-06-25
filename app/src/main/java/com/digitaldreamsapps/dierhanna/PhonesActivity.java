@@ -58,7 +58,7 @@ public class PhonesActivity extends BaseActivity {
             }
         });
 
-        setViewModel("Important phones", new OnDataChangedRepository() {
+        setViewModel("Phones", new OnDataChangedRepository() {
 
 
 
@@ -75,7 +75,7 @@ public class PhonesActivity extends BaseActivity {
             public void onNoDataReceived() {
 
             }
-        },new Phones());
+        });
 
 
     }

@@ -18,10 +18,10 @@ public class BaseViewModel <T> extends AndroidViewModel {
 
     }
 
-    public void setChildFirebase(String childFirebase, T t , LifecycleOwner lifecycleOwner){
+    public void setChildFirebase(String childFirebase, LifecycleOwner lifecycleOwner){
         repository = new Repository(getApplication(),lifecycleOwner);
 
-        repository.setFirebaseChild(childFirebase,t);
+        repository.setFirebaseChild(childFirebase);
 
     }
 

@@ -43,7 +43,7 @@ public class ReportActivity extends BaseActivity {
         });
 
         recyclerView.setAdapter(reportCatAdapter);
-        setViewModel("Report Categories", new OnDataChangedRepository() {
+        setViewModel("ReportCat", new OnDataChangedRepository() {
 
 
 
@@ -60,6 +60,6 @@ public class ReportActivity extends BaseActivity {
             public void onNoDataReceived() {
 
             }
-        },new ReportCat());
+        });
     }
 }

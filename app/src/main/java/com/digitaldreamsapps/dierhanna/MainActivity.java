@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity {
 
 
 
-        setViewModel("MainNews", new OnDataChangedRepository() {
+        setViewModel("News", new OnDataChangedRepository() {
 
 
             @Override
@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
 
 
 
-        },new News());
+        });
 
 
 

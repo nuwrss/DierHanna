@@ -33,7 +33,7 @@ public class DeirHannaDataBase {
     public  <T> void insertAll(List<T> t) {
 
         if (t==null || t.isEmpty()) return;
-        BaseDao baseDao = daoRepository.getDao(t.get(0));
+        BaseDao baseDao = daoRepository.getDao(t.get(0).getClass().getSimpleName());
 
 
             List<T> list = baseDao.getAllItems();
@@ -47,9 +47,9 @@ public class DeirHannaDataBase {
             baseDao.insertAll(t);
 
     }
-    public <T> Flowable getAll(T t) {
+    public  Flowable getAll(String className) {
 
-        BaseDao baseDao = daoRepository.getDao(t);
+        BaseDao baseDao = daoRepository.getDao(className);
         if (baseDao == null) return null;
 
             return baseDao.getAll();
@@ -58,8 +58,8 @@ public class DeirHannaDataBase {
 
     }
 
-    public <T> boolean isAvailableDao(T t) {
-        if (daoRepository.getDao(t) != null) return   true;
+    public  boolean isAvailableDao(String className) {
+        if (daoRepository.getDao(className) != null) return   true;
         return false;
 
     }

@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import com.digitaldreamsapps.dierhanna.adapters.AppointmentsAdapter;
+import com.digitaldreamsapps.dierhanna.adapters.ItemsAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.Appointment;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class AppointmentsActivity extends BaseActivity {
 
-    private AppointmentsAdapter appointmentsAdapter;
+    private ItemsAdapter appointmentsAdapter;
     private List<Appointment> appointments = new ArrayList<>();
     private ShimmerFrameLayout shimmerFrameLayout;
     @Override
@@ -33,7 +33,7 @@ public class AppointmentsActivity extends BaseActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        appointmentsAdapter= new AppointmentsAdapter(appointments);
+        appointmentsAdapter= new ItemsAdapter(appointments);
         recyclerView.setAdapter(appointmentsAdapter);
 
         appointmentsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
@@ -47,7 +47,7 @@ public class AppointmentsActivity extends BaseActivity {
             }
 
         });
-        setViewModel("Appointments", new OnDataChangedRepository() {
+        setViewModel("Appointment", new OnDataChangedRepository() {
 
 
 
@@ -65,7 +65,7 @@ public class AppointmentsActivity extends BaseActivity {
             public void onNoDataReceived() {
 
             }
-        },new Appointment());
+        });
 
 
     }

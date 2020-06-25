@@ -1,59 +1,54 @@
 package com.digitaldreamsapps.dierhanna;
 
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import com.digitaldreamsapps.dierhanna.adapters.NewsAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.digitaldreamsapps.dierhanna.adapters.ItemsAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
-import com.digitaldreamsapps.dierhanna.models.News;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends BaseActivity {
-    private List<News> news = new ArrayList<>();
-    private NewsAdapter newsAdapter;
+//Todo have to complete this activity as base
+public  class BaseItemActivity <T> extends BaseActivity {
+    private ItemsAdapter itemsAdapter;
+    private List<T> items = new ArrayList<>();
     private ShimmerFrameLayout shimmerFrameLayout;
+    private String itemName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
-        setToolbar(getResources().getString(R.string.news),true,true);
-
-       setOnSupportNavigateUp(true);
-
-
-
+        setContentView(R.layout.activitybase_layout);
+        itemName = getIntent().getStringExtra("itemName");
+        setOnSupportNavigateUp(true);
         shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
         shimmerFrameLayout.startShimmerAnimation();
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        newsAdapter=new NewsAdapter(news);
-        newsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
+        itemsAdapter= new ItemsAdapter(items);
+        recyclerView.setAdapter(itemsAdapter);
+        itemsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
             public <T> void onItemClicked(T item) {
-                Intent intent = new Intent(NewsActivity.this,ArticleActivity.class);
-                intent.putExtra("news",(News)item);
-                startActivity(intent);
+
+
             }
         });
 
-        recyclerView.setAdapter(newsAdapter);
+        setViewModel(itemName, new OnDataChangedRepository() {
 
-        setViewModel("News", new OnDataChangedRepository() {
+
 
 
             @Override
             public void onDataChangedDataBase(Object o) {
-                news.clear();
-                news.addAll((List<News>)o);
-                newsAdapter.notifyDataSetChanged();
+
+                items.clear();
+                items.addAll((List<T>)o);
+                itemsAdapter.notifyDataSetChanged();
                 shimmerFrameLayout.stopShimmerAnimation();
                 shimmerFrameLayout.setVisibility(View.GONE);
             }
@@ -62,13 +57,7 @@ public class NewsActivity extends BaseActivity {
             public void onNoDataReceived() {
 
             }
-
         });
-
-
-
-
-
     }
 
     @Override
@@ -82,7 +71,5 @@ public class NewsActivity extends BaseActivity {
         shimmerFrameLayout.stopShimmerAnimation();
         super.onPause();
     }
-
-
 
 }

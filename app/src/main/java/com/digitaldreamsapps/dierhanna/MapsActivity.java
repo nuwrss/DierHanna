@@ -135,7 +135,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
     }
     private void showAll(){
-        setViewModel("BusinessCats", new OnDataChangedRepository() {
+        setViewModel("BusinessCat", new OnDataChangedRepository() {
 
 
             @Override
@@ -148,7 +148,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
             }
 
-        },new BusinessCat());
+        });
 
 
     }

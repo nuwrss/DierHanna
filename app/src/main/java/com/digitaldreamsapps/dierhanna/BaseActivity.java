@@ -74,13 +74,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
     }
 
-    public <T> void setViewModel(String childFireBase, final OnDataChangedRepository onDataChangedRepository,T t){
+    public void setViewModel(String childFireBase, final OnDataChangedRepository onDataChangedRepository){
 
         if (baseViewModel==null) {
             baseViewModel = new ViewModelProvider(this).get(BaseViewModel.class);
-            baseViewModel.setChildFirebase(childFireBase,t,this);
+            baseViewModel.setChildFirebase(childFireBase,this);
         }
-        registerViewModel(onDataChangedRepository,t);
+        registerViewModel(onDataChangedRepository);
 
 
     }
@@ -90,7 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             baseViewModel.getData().removeObservers(this);
     }
 
-    private<T> void  registerViewModel(final OnDataChangedRepository onDataChangedRepository, final T t){
+    private<T> void  registerViewModel(final OnDataChangedRepository onDataChangedRepository){
         showProgressBar();
 
         if (baseViewModel.getData().hasActiveObservers()){

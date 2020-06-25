@@ -1,9 +1,7 @@
 package com.digitaldreamsapps.dierhanna.models;
 
 import androidx.annotation.NonNull;
-import androidx.room.Embedded;
 import androidx.room.Entity;
-
 import com.digitaldreamsapps.dierhanna.util.Config;
 import com.digitaldreamsapps.dierhanna.util.Language;
 import com.google.firebase.database.DataSnapshot;
