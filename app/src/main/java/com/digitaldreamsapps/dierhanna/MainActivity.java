@@ -68,28 +68,41 @@ public class MainActivity extends BaseActivity {
     }
 
 
+
+
     public void appointmentclick(View view) {
         Intent intent = new Intent(this,AppointmentsActivity.class);
+        intent.putExtra("itemName", "Appointment");
         startActivity(intent);
     }
 
     public void phonesActivity(View view) {
         Intent intent = new Intent(this,PhonesActivity.class);
+        intent.putExtra("itemName", "Phones");
         startActivity(intent);
     }
 
     public void formsClick(View view) {
         Intent intent = new Intent(this,FormsActivity.class);
+        intent.putExtra("itemName", "Form");
         startActivity(intent);
     }
 
     public void weddingsClick(View view) {
         Intent intent = new Intent(this,WeddingsActivity.class);
+        intent.putExtra("itemName", "Wedding");
         startActivity(intent);
     }
 
     public void newsClick(View view) {
         Intent intent = new Intent(this,NewsActivity.class);
+        intent.putExtra("itemName", "News");
+        startActivity(intent);
+    }
+
+    public void reportClicked(View view) {
+        Intent intent = new Intent(this,ReportActivity.class);
+
         startActivity(intent);
     }
 
@@ -105,9 +118,10 @@ public class MainActivity extends BaseActivity {
 
     }
 
+
+
     public void busClicked(View view) {
-        Intent intent = new Intent(this,MapsActivity.class);
-        startActivity(intent);
+
     }
 
     public void measurClicked(View view) {
@@ -168,9 +182,5 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    public void reportClicked(View view) {
-        Intent intent = new Intent(this,ReportActivity.class);
 
-        startActivity(intent);
-    }
 }

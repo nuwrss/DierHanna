@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.digitaldreamsapps.dierhanna.R;
 import com.digitaldreamsapps.dierhanna.models.Place;
 import com.google.android.gms.maps.GoogleMap;

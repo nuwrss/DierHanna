@@ -1,10 +1,7 @@
 package com.digitaldreamsapps.dierhanna.database;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Query;
-
-
 import com.digitaldreamsapps.dierhanna.models.News;
 import java.util.List;
 import io.reactivex.Flowable;

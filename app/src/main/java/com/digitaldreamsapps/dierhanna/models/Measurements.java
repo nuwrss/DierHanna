@@ -1,13 +1,6 @@
 package com.digitaldreamsapps.dierhanna.models;
 
 
-import android.text.format.DateFormat;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Locale;
-
 public class Measurements {
    private String obsTimeLocal;
    private double solarRadiation;

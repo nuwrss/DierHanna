@@ -5,22 +5,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
-import com.digitaldreamsapps.dierhanna.adapters.WeddingsAdapter;
+
+import com.digitaldreamsapps.dierhanna.adapters.ItemsAdapter;
 import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
+import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.Wedding;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WeddingsActivity extends BaseActivity {
+
     private List<Wedding> weddings = new ArrayList<>();
-    private WeddingsAdapter weddingsAdapter;
+    private ItemsAdapter weddingsAdapter;
     private ShimmerFrameLayout shimmerFrameLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weddings);
+       setContentView(R.layout.activity_weddings);
         setToolbar(getResources().getString(R.string.Weddings),true,true);
         setOnSupportNavigateUp(true);
 
@@ -33,8 +38,15 @@ public class WeddingsActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
         shimmerFrameLayout.startShimmerAnimation();
-        weddingsAdapter = new WeddingsAdapter(weddings);
+        weddingsAdapter = new ItemsAdapter(weddings);
         recyclerView.setAdapter(weddingsAdapter);
+
+        weddingsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
+            @Override
+            public <T> void onItemClicked(T item) {
+
+            }
+        });
 
         setViewModel("Wedding", new OnDataChangedRepository() {
 
@@ -57,6 +69,7 @@ public class WeddingsActivity extends BaseActivity {
 
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();

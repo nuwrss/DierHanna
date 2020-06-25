@@ -28,7 +28,7 @@ app:contentPadding="4dp" >
 
         android:layout_centerVertical="true"
         android:maxWidth="300dp"
-        android:id="@+id/appontmenttitle"
+        android:id="@+id/title"
         android:layout_margin="5dp" />
 
     <ImageView

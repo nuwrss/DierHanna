@@ -2,8 +2,6 @@ package com.digitaldreamsapps.dierhanna;
 
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.NetworkType;
@@ -19,46 +17,25 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.View;
 import android.widget.Toast;
-import com.digitaldreamsapps.dierhanna.adapters.FormsAdapter;
-import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.Form;
 import com.digitaldreamsapps.dierhanna.util.CheckForSDCard;
 import com.digitaldreamsapps.dierhanna.util.DownloadFileWorkManager;
 import com.digitaldreamsapps.dierhanna.util.LiveDataHelperWorkManager;
-import com.facebook.shimmer.ShimmerFrameLayout;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
-public class FormsActivity extends BaseActivity {
+public class FormsActivity extends BaseItemActivity {
     private  final int PERMISSION_REQUEST_CODE_READ_STORAGE = 101 ;
-    private List<Form> forms = new ArrayList<>();
-    private FormsAdapter formsAdapter;
     private  final int PERMISSION_REQUEST_CODE_WRITE_STORAGE = 100;
-    private ShimmerFrameLayout shimmerFrameLayout;
     private Form form;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forms);
+
        setToolbar(getResources().getString(R.string.forms),true,true);
-       setOnSupportNavigateUp(true);
 
-
-
-
-        RecyclerView recyclerView = findViewById(R.id.recycler);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        formsAdapter=new FormsAdapter(forms);
-        recyclerView.setAdapter(formsAdapter);
-        shimmerFrameLayout = findViewById(R.id.shimmerFrameLayout);
-        shimmerFrameLayout.startShimmerAnimation();
-        formsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
+        itemsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
             @Override
             public <T> void onItemClicked(T item) {
                 Form form1= (Form)item;
@@ -75,29 +52,6 @@ public class FormsActivity extends BaseActivity {
             }
         });
 
-
-        setViewModel("Forms", new OnDataChangedRepository() {
-
-
-
-
-            @Override
-            public void onDataChangedDataBase(Object o) {
-                forms.clear();
-                forms.addAll((List<Form>)o);
-                formsAdapter.notifyDataSetChanged();
-                shimmerFrameLayout.stopShimmerAnimation();
-                shimmerFrameLayout.setVisibility(View.GONE);
-
-
-            }
-
-            @Override
-            public void onNoDataReceived() {
-
-            }
-
-        });
 
     }
 
@@ -229,7 +183,7 @@ public class FormsActivity extends BaseActivity {
                             showMessage(getResources().getString(R.string.problem_withDownload));
                         }
                     }
-                    formsAdapter.notifyDataSetChanged();
+                    itemsAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -255,18 +209,5 @@ public class FormsActivity extends BaseActivity {
 
 
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        shimmerFrameLayout.startShimmerAnimation();
-    }
-
-    @Override
-    protected void onPause() {
-        shimmerFrameLayout.stopShimmerAnimation();
-        super.onPause();
-    }
-
 
 }

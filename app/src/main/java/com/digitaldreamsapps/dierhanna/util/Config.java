@@ -1,12 +1,5 @@
 package com.digitaldreamsapps.dierhanna.util;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.util.DisplayMetrics;
-import android.util.Log;
-
 import java.util.Locale;
 
 public class Config {

@@ -3,24 +3,17 @@ package com.digitaldreamsapps.dierhanna.util;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
-import com.digitaldreamsapps.dierhanna.FormsActivity;
 import com.digitaldreamsapps.dierhanna.R;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

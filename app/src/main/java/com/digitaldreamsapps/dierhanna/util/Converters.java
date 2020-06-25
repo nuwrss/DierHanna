@@ -1,15 +1,11 @@
 package com.digitaldreamsapps.dierhanna.util;
 
 import androidx.room.TypeConverter;
-
 import com.digitaldreamsapps.dierhanna.models.Business;
-import com.digitaldreamsapps.dierhanna.models.Place;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Converters {
