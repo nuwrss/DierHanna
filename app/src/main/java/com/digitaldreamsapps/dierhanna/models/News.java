@@ -3,6 +3,7 @@ package com.digitaldreamsapps.dierhanna.models;
 
 import androidx.room.Entity;
 import java.io.Serializable;
+
 @Entity(primaryKeys = {"title"})
 public class News extends BaseItem implements Serializable {
 

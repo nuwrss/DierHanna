@@ -2,7 +2,9 @@ package com.digitaldreamsapps.dierhanna.models;
 
 import androidx.annotation.NonNull;
 
-public abstract class BaseItem {
+import java.io.Serializable;
+
+public abstract class BaseItem implements Serializable {
     @NonNull
     private String title;
 
