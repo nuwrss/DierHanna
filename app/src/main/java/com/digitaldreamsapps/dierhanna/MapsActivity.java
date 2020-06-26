@@ -447,10 +447,22 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
             @Override
             public void onClick(View v) {
 
-                Uri location = Uri.parse("geo:" + place.getLat() + "," + place.getLongt()); // z param is zoom level
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
-                Intent chooser = Intent.createChooser(mapIntent, "Open with :");
-                startActivity(chooser);
+                String url = "waze://?ll=" + place.getLat() + ", " + place.getLongt() + "&navigate=yes";
+                Intent intentWaze = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+
+                String uriGoogle = "google.navigation:q=" + place.getLat() + "," + place.getLongt();
+                Intent intentGoogleNav = new Intent(Intent.ACTION_VIEW, Uri.parse(uriGoogle));
+
+                intentWaze.setPackage("com.waze");
+
+                intentGoogleNav.setPackage("com.google.android.apps.maps");
+
+                Intent chooserIntent = Intent.createChooser(intentGoogleNav, "Choose Maps : ");
+                Intent[] arr = new Intent[1];
+                arr[0] = intentWaze;
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arr);
+                startActivity(chooserIntent);
+
             }
         });
 
