@@ -67,9 +67,9 @@ public class DownloadFileWorkManager extends Worker {
 
 
 
-            URLConnection urlConnection = null;
 
-            urlConnection = downloadUrl.openConnection();
+
+            URLConnection urlConnection = downloadUrl.openConnection();
 
             urlConnection.connect();
             int fileLength = urlConnection.getContentLength();
@@ -78,12 +78,18 @@ public class DownloadFileWorkManager extends Worker {
             byte[] buffer = new byte[1024];
             int len1;
             long total = 0;
+
+
             while ((len1 = inputStream.read(buffer)) > 0) {
                 total += len1;
                 int percentage = (int) ((total * 100) / fileLength);
                 LiveDataHelperWorkManager.getInstance().updateDownloadPer(percentage);
+
+
                 builder.setProgress(100,percentage,false);
                 notificationManager.notify(1, builder.build());
+
+
                 fos.write(buffer, 0, len1);
             }
             fos.close();

@@ -9,7 +9,7 @@ import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.Form;
 import java.io.File;
 
-public class FormsViewHolder<T> extends BaseViewHolder {
+public class FormsViewHolder extends BaseViewHolder {
    private ImageView downloadImg;
     public FormsViewHolder(@NonNull View itemView) {
         super(itemView);

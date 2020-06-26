@@ -1,19 +1,12 @@
 package com.digitaldreamsapps.dierhanna;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.digitaldreamsapps.dierhanna.models.Measurements;
 import com.digitaldreamsapps.dierhanna.viewmodels.MeasurementsViewModel;
-
 import java.util.List;
 
 public class WeatherActivity extends BaseActivity {

@@ -8,15 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.digitaldreamsapps.dierhanna.R;
 import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.Form;
+import com.digitaldreamsapps.dierhanna.models.News;
 import com.digitaldreamsapps.dierhanna.viewholders.BaseViewHolder;
 import com.digitaldreamsapps.dierhanna.viewholders.FormsViewHolder;
+import com.digitaldreamsapps.dierhanna.viewholders.NewsViewHolder;
+
 import java.util.List;
 
 
 public class  ItemsAdapter<T> extends RecyclerView.Adapter  {
 
-    private final int BASE_TYPE =1 ;
-    private final int FORM_TYPE =2 ;
+    private final int BASE_TYPE = 1 ;
+    private final int FORM_TYPE = 2 ;
+    private final int NEWS_TYPE = 3 ;
 
 
     private List<T> itemList;
@@ -42,11 +46,18 @@ public class  ItemsAdapter<T> extends RecyclerView.Adapter  {
                     .inflate(R.layout.base_cell, parent, false);
             viewHolder = new BaseViewHolder(v);
 
-        }else{
+        }
+        if (viewType == NEWS_TYPE){
+            v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.news_cell, parent, false);
+            viewHolder = new NewsViewHolder(v);
+        }
+        if (viewType == FORM_TYPE){
             v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.formcell, parent, false);
             viewHolder = new FormsViewHolder(v);
         }
+
 
         return viewHolder;
     }
@@ -70,7 +81,13 @@ public class  ItemsAdapter<T> extends RecyclerView.Adapter  {
     public int getItemViewType(int position) {
         if (itemList.get(position) instanceof Form){
             return FORM_TYPE;
-        }else{
+        }
+
+        if (itemList.get(position) instanceof News){
+            return NEWS_TYPE;
+        }
+
+        else{
             return BASE_TYPE;
         }
 
