@@ -16,7 +16,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
 
-
+    private News news;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -45,7 +45,8 @@ public class MainActivity extends BaseActivity {
             public void onDataChangedDataBase(Object o) {
                 List<News>newsList = (List<News>)o;
                 if (newsList.isEmpty()) return;
-                News news = newsList.get(0);
+                 news = newsList.get(0);
+
                 mainText.setText(news.getTitle());
 
                 Picasso.get().load(news.getImage()).into(imageView);
@@ -183,4 +184,10 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    public void mainNewsClicked(View view) {
+        if (news==null) return;
+        Intent intent = new Intent(this, ArticleActivity.class);
+        intent.putExtra("news", news);
+        startActivity(intent);
+    }
 }

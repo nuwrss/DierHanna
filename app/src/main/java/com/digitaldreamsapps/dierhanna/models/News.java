@@ -3,6 +3,7 @@ package com.digitaldreamsapps.dierhanna.models;
 
 import androidx.room.Entity;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Entity(primaryKeys = {"title"})
 public class News extends BaseItem implements Serializable {
@@ -10,7 +11,15 @@ public class News extends BaseItem implements Serializable {
     private String article;
     private String image;
 
+    private ArrayList<String> images;
 
+    public ArrayList<String> getImages() {
+        return images;
+    }
+
+    public void setImages(ArrayList<String> images) {
+        this.images = images;
+    }
 
     public String getArticle() {
         return article;

@@ -1,27 +1,27 @@
 package com.digitaldreamsapps.dierhanna;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
-import androidx.viewpager2.widget.ViewPager2;
 
+import androidx.annotation.NonNull;
+import androidx.viewpager2.widget.ViewPager2;
 import com.digitaldreamsapps.dierhanna.adapters.ImagesViewPagerAdapter;
 import com.digitaldreamsapps.dierhanna.models.News;
-import com.squareup.picasso.Picasso;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.ArrayList;
 
 public class ArticleActivity extends BaseActivity {
     private ViewPager2 imagesViewPager;
-    private ArrayList<String> images = new ArrayList<>();
+
     private ImagesViewPagerAdapter imagesViewPagerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
         News news = (News) getIntent().getSerializableExtra("news");
-        Log.e("title",news.getTitle());
+
         setToolbar(news.getTitle(),true,true);
         setOnSupportNavigateUp(true);
 
@@ -31,11 +31,23 @@ public class ArticleActivity extends BaseActivity {
         imagesViewPager = findViewById(R.id.viewPager2);
 
 
+       TabLayout tabLayout = findViewById(R.id.tbalayout);
 
-        images.add(news.getImage());
 
-        imagesViewPagerAdapter= new ImagesViewPagerAdapter(images);
+
+
+
+
+
+        imagesViewPagerAdapter= new ImagesViewPagerAdapter(news.getImages());
         imagesViewPager.setAdapter(imagesViewPagerAdapter);
+
+        new TabLayoutMediator(tabLayout, imagesViewPager,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+
+                    }
+                }).attach();
 
 
 

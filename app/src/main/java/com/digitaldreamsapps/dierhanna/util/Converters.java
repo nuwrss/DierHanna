@@ -12,20 +12,23 @@ public class Converters {
     private static Gson gson = new Gson();
     @TypeConverter
     public static String fromArrayList(ArrayList<String> strings) {
-        return  strings.toString();
+        return gson.toJson(strings);
 
     }
 
     @TypeConverter
     public static ArrayList<String> fromString(String s) {
-        s=s.replace("[","");
-        s=s.replaceAll("]","");
-        String[]arrS =s.split(",");
-        ArrayList<String>strings = new ArrayList<>();
-        for (String ss : arrS){
-            strings.add(ss);
+
+        if (s == null) {
+            return new ArrayList<>();
         }
-        return strings;
+
+        Type listType = new TypeToken<List<String>>() {}.getType();
+
+        return gson.fromJson(s, listType);
+
+
+
     }
 
 

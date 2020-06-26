@@ -37,7 +37,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:background="?android:attr/selectableItemBackground"
-
+                    android:onClick="mainNewsClicked"
                     android:layout_height="wrap_content">
 
                     <ImageView
@@ -69,11 +69,7 @@
                     </FrameLayout>
 
                 </FrameLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:background="#Faac13"
-
-                    android:layout_height="2dp"></LinearLayout>
+                <include layout="@layout/gold_line" />
 
 
 
