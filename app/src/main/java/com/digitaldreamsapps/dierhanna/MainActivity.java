@@ -72,9 +72,8 @@ public class MainActivity extends BaseActivity {
 
 
     public void appointmentclick(View view) {
-        Intent intent = new Intent(this,AppointmentsActivity.class);
-        intent.putExtra("itemName", "Appointment");
-        startActivity(intent);
+        BaseItemActivity.startBaseItemActivity(this,"Appointment",getResources().getString(R.string.appointment));
+
     }
 
     public void phonesActivity(View view) {
@@ -90,15 +89,17 @@ public class MainActivity extends BaseActivity {
     }
 
     public void weddingsClick(View view) {
+
         Intent intent = new Intent(this,WeddingsActivity.class);
         intent.putExtra("itemName", "Wedding");
         startActivity(intent);
     }
 
     public void newsClick(View view) {
-        Intent intent = new Intent(this,NewsActivity.class);
-        intent.putExtra("itemName", "News");
-        startActivity(intent);
+
+        BaseItemActivity.startBaseItemActivity(this,"News",getResources().getString(R.string.news));
+
+
     }
 
     public void reportClicked(View view) {
@@ -109,13 +110,12 @@ public class MainActivity extends BaseActivity {
 
     public void historyClicked(View view) {
 
-
-
-
+        /*
         Intent intent = new Intent(this,MapsActivity.class);
         intent.putExtra("type","memorials");
         startActivity(intent);
 
+         */
 
     }
 

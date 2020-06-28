@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.internetConnection = internetConnection;
     }
 
-    private boolean internetConnection ;
+    private boolean internetConnection = true;
 
     public void setLanguage(){
         SharedPreferences sharedPreferences
@@ -100,13 +100,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         baseViewModel.getConnectionStatusLiveData().observe(this, new Observer<ConnectionStatus>() {
             @Override
             public void onChanged(ConnectionStatus connectionStatus) {
+                hideProgressBar();
+                if (!internetConnection) return;
                 setInternetConnection(connectionStatus.isConnected());
                 if (!connectionStatus.isConnected()){
 
 
                     showMessage(getResources().getString(R.string.internet_problem));
 
-                    hideProgressBar();
+
                 }else{
 
                 }

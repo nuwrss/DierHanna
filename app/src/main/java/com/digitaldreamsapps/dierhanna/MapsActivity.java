@@ -27,7 +27,6 @@ import com.digitaldreamsapps.dierhanna.interfaces.OnDataChangedRepository;
 import com.digitaldreamsapps.dierhanna.interfaces.OnItemClickedListener;
 import com.digitaldreamsapps.dierhanna.models.BusinessCat;
 import com.digitaldreamsapps.dierhanna.models.Place;
-import com.digitaldreamsapps.dierhanna.models.Business;
 import com.digitaldreamsapps.dierhanna.models.Memorial;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,7 +37,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.DataSnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import java.util.ArrayList;
@@ -91,7 +89,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
 
         recyclerView
-                = (RecyclerView)findViewById(
+                = findViewById(
                 R.id.recycler);
         RecyclerViewLayoutManager
                 = new LinearLayoutManager(
