@@ -29,7 +29,6 @@ import com.digitaldreamsapps.dierhanna.models.BusinessCat;
 import com.digitaldreamsapps.dierhanna.models.Place;
 import com.digitaldreamsapps.dierhanna.models.Business;
 import com.digitaldreamsapps.dierhanna.models.Memorial;
-import com.digitaldreamsapps.dierhanna.viewmodels.MapMemorialsViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -47,7 +46,6 @@ import java.util.ArrayList;
 public class MapsActivity extends BaseActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
-    private MapMemorialsViewModel mapMemorialsViewModel;
     private ArrayList<Marker>markers=new ArrayList<>();
     private ArrayList<BusinessCat>businessCats=new ArrayList<>();
     private RecyclerView recyclerView;
