@@ -217,56 +217,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
     }
 
-    private void Busness(DataSnapshot dataSnapshot) {
 
-
-        DierInfoWindowAdapter customInfoWindow = new DierInfoWindowAdapter(this);
-        mMap.setInfoWindowAdapter(customInfoWindow);
-
-
-
-
-                   removeMarkersFromMap();
-
-                    businessCats.clear();
-
-                    for (DataSnapshot readData : dataSnapshot.getChildren()) {
-                        BusinessCat businessCat = new BusinessCat();
-                        businessCat.setDetails(readData);
-                        businessCats.add(businessCat);
-                        for (DataSnapshot snapshot : readData.getChildren()){
-                            if (snapshot.getKey().equals("nameAr")||snapshot.getKey().equals("nameEn")||snapshot.getKey().equals("nameHe")||snapshot.getKey().equals("icon")){
-
-                                continue;
-                            }
-                            for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                                final Business data = new Business();
-                                data.setDetails(snapshot1);
-
-                                businessCat.addPlace(data);
-                                addMarkersToMap(data);
-
-
-
-                            }
-
-
-                        }
-
-
-
-
-
-
-                    }
-
-
-                busCatAdapter.notifyDataSetChanged();
-
-
-
-
-    }
 
     
 
