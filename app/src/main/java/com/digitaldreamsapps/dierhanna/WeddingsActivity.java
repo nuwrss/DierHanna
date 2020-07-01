@@ -49,8 +49,6 @@ public class WeddingsActivity extends BaseActivity {
         });
 
         setViewModel("Wedding", new OnDataChangedRepository() {
-
-
             @Override
             public void onDataChangedDataBase(Object o) {
                 weddings.clear();

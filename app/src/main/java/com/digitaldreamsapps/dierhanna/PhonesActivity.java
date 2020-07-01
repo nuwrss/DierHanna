@@ -31,8 +31,6 @@ public class PhonesActivity extends BaseActivity {
         setToolbar(getResources().getString(R.string.phone_numbers),true,true);
         setOnSupportNavigateUp(true);
 
-
-
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -43,7 +41,7 @@ public class PhonesActivity extends BaseActivity {
             @Override
             public void onPhoneNumberClick(String number) {
 
-                phonNumber=number;
+                phoneNumber =number;
                 makeCall();
             }
 
@@ -59,8 +57,6 @@ public class PhonesActivity extends BaseActivity {
         });
 
         setViewModel("Phones", new OnDataChangedRepository() {
-
-
 
             @Override
             public void onDataChangedDataBase(Object o) {
@@ -79,10 +75,10 @@ public class PhonesActivity extends BaseActivity {
 
 
     }
-    String phonNumber="";
+    String phoneNumber ="";
     private void makeCall() {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + phonNumber));
+        callIntent.setData(Uri.parse("tel:" + phoneNumber));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             requestForCallPermission();
             return;

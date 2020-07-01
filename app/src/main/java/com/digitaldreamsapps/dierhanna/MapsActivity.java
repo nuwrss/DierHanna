@@ -113,9 +113,6 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
         mapFragment.getMapAsync(this);
 
 
-
-
-
     }
     @Override
     protected void onNewIntent(Intent intent) {
@@ -123,20 +120,16 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
         setIntent(intent);
         if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
             String query = getIntent().getStringExtra(SearchManager.QUERY);
-
-
             searchQuery(query);
-
         }
 
     }
     private void showAll(){
         setViewModel("BusinessCat", new OnDataChangedRepository() {
 
-
             @Override
             public void onDataChangedDataBase(Object o) {
-                showBussniss((ArrayList<BusinessCat>)o);
+                showBusiness((ArrayList<BusinessCat>)o);
             }
 
             @Override
@@ -145,12 +138,9 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
             }
 
         });
-
-
     }
 
-    private void showBussniss(ArrayList<BusinessCat> o) {
-
+    private void showBusiness(ArrayList<BusinessCat> o) {
 
         DierInfoWindowAdapter customInfoWindow = new DierInfoWindowAdapter(this);
         mMap.setInfoWindowAdapter(customInfoWindow);
@@ -166,37 +156,26 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
         }
 
-
-
-
-
-
     }
 
     private void categorySelected(BusinessCat businessCat){
        unRegisterViewModel();
-
-
-        removeMarkersFromMap();
-        if (businessCat.getPlaces().isEmpty()){
+       removeMarkersFromMap();
+       if (businessCat.getPlaces().isEmpty()){
             showMessage(getResources().getString(R.string.no_data_available));
             return;
         }
         for (final Place place : businessCat.getPlaces()) {
             addMarkersToMap(place);
-
-
         }
 
     }
     private void searchQuery(String query) {
         if (mMap==null || !mapLoadSuccess)
             return;
+
         unRegisterViewModel();
-
-
-        
-       removeMarkersFromMap();
+        removeMarkersFromMap();
 
         if (businessCats.isEmpty()){
             showMessage(getResources().getString(R.string.no_data_available));
@@ -334,16 +313,11 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-
         showDialog(marker);
-
-
     }
 
     private void showDialog(Marker marker) {
         final Place place = (Place) marker.getTag();
-
-
         final Dialog dialogView = new Dialog(this);
         dialogView.setContentView(R.layout.busniss_dialog);
         dialogView.setTitle("");
@@ -383,7 +357,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
                 @Override
                 public void onClick(View v) {
 
-                    phonNumber=place.getPhones().get(0);
+                    phoneNumber =place.getPhones().get(0);
                     makeCall();
                 }
             });
@@ -428,10 +402,11 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
         dialogView.show();
     }
 
-    String phonNumber="";
+    String phoneNumber ="";
+
     private void makeCall() {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + phonNumber));
+        callIntent.setData(Uri.parse("tel:" + phoneNumber));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             requestForCallPermission();
             return;

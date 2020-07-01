@@ -43,9 +43,6 @@ public class ReportActivity extends BaseActivity {
 
         recyclerView.setAdapter(reportCatAdapter);
         setViewModel("ReportCat", new OnDataChangedRepository() {
-
-
-
             @Override
             public void onDataChangedDataBase(Object o) {
                 reportCats.clear();

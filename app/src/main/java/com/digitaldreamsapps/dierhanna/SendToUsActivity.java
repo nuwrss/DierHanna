@@ -37,7 +37,6 @@ public class SendToUsActivity extends BaseActivity {
 
     }
 
-
     public void send(View view) {
         String name = nameEdit.getText().toString();
         String phone = phoneEdit.getText().toString();
